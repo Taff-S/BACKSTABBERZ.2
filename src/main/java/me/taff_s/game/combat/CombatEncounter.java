@@ -36,6 +36,8 @@ public class CombatEncounter {
         player1.dStanceCounter = 2;
         player2.dStanceCounter = 2;
 
+        //section for charms and other pre-combat effects
+
         for (Player player : List.of(player1, player2)) {
             for (Charm charm : player.getEquippedCharms()) {
                 if (charm instanceof ShieldCharm) {
@@ -45,7 +47,23 @@ public class CombatEncounter {
             }
         }
 
+        for (Player player : List.of(player1, player2)) {
+            Weapon weapon = player.getEquipment().getEquippedWeapon();
+            if (weapon != null && weapon.getWeaponClass() == Weapon.WeaponClass.BOW) {
+                // Apply first turn attack bonus for bow
+                CombatResult bowBonus = new CombatResult();
+                int bonusDamage = weapon.getDamage() / 2; // 50% extra damage on first turn
+                enemy.isHit(bonusDamage, weapon.getDamageType());
+                bowBonus.addEvent(player.getName() + " gets a first turn bonus with their bow, dealing an extra " + bonusDamage + " damage!");
+                combatLog.add(bowBonus);
+            }
+        }
+
+
+
         while (player1.living() && player2.living() && enemy.living()) {
+
+            CombatSystem.startNewTurn(List.of(player1, player2), enemy);
             // Prompt both players for actions
             //ph1.getMessenger().send("ts so mustard");
             //ph2.getMessenger().send("erm what the sigma");

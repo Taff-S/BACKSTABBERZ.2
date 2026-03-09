@@ -12,9 +12,7 @@ import me.taff_s.game.items.charms.Charm;
 import me.taff_s.game.items.charms.NoCharm;
 import me.taff_s.game.items.weapons.NoWeapon;
 import me.taff_s.game.items.armour.NoArmour;
-import me.taff_s.game.player.Player;
-import me.taff_s.game.player.EquippedItems;
-import me.taff_s.game.player.PlayerHandler;
+// classes in the same package don't need to be imported
 
 public class Inventory{
     private List<Item> items = new ArrayList<>();

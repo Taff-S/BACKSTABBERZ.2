@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import me.taff_s.game.player.Inventory;
-import me.taff_s.game.player.EquippedItems;
-import me.taff_s.game.player.PlayerHandler;
+// classes in the same package don't need to be imported
 import me.taff_s.game.items.Item;
 import me.taff_s.game.items.Usable;
 import me.taff_s.game.items.Equippable;

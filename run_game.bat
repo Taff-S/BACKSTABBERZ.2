@@ -38,18 +38,18 @@ echo.
 
 REM Start the server
 echo Starting Game Server...
-start "BACKSTABBERZ.2 - Server" /d "%OUT_DIR%" cmd /k java %MAIN_PACKAGE%.core.GameServer
+start "BACKSTABBERZ.2 - Server" cmd /k "cd /d "%OUT_DIR%" && java -cp . %MAIN_PACKAGE%.net.GameServer"
 
 REM Wait for server to start
 timeout /t 2 /nobreak
 
 REM Start client 1
 echo Starting Client 1...
-start "BACKSTABBERZ.2 - Client 1" /d "%OUT_DIR%" cmd /k java %MAIN_PACKAGE%.core.GameClient
+start "BACKSTABBERZ.2 - Client 1" cmd /k "cd /d "%OUT_DIR%" && java -cp . %MAIN_PACKAGE%.net.GameClient"
 
 REM Start client 2
 echo Starting Client 2...
-start "BACKSTABBERZ.2 - Client 2" /d "%OUT_DIR%" cmd /k java %MAIN_PACKAGE%.core.GameClient
+start "BACKSTABBERZ.2 - Client 2" cmd /k "cd /d "%OUT_DIR%" && java -cp . %MAIN_PACKAGE%.net.GameClient"
 
 echo.
 echo ========================================

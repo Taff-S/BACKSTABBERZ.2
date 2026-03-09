@@ -6,8 +6,30 @@ import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponClass;
 import me.taff_s.game.items.charms.Charm;
 import me.taff_s.game.combat.CombatResult;
+import java.util.List;
 
 public class CombatSystem {
+
+    private static int turnCounter = 0;
+
+    public static int getTurnCounter() {
+        return turnCounter;
+    }
+
+    public static void startNewTurn(List<Player> players, Enemy enemy) {
+        turnCounter++;
+        notifyTurnStart(players, enemy);
+    }
+
+    private static void notifyTurnStart(List<Player> players, Enemy enemy) {
+        // Notify all players
+        for (Player player : players) {
+            player.onTurnStart();
+        }
+
+        // Notify the enemy (only one per combat encounter)
+        enemy.onTurnStart();
+    }
 
     public static CombatResult performAttack(Player attacker, Enemy enemy) {
         CombatResult result = new CombatResult();
@@ -26,13 +48,13 @@ public class CombatSystem {
         switch (weapon.getWeaponClass()) {
             case SWORD:
                 if (Math.random() < 0.2) {
-                    enemy.reduceAttack(5);
+                    enemy.reduceAttack(5, 3);
                     result.addEvent(enemy.getType() + "'s attack has been reduced!");
                 }
                 break;
             case AXE:
                 if (Math.random() < 0.2) {
-                    enemy.reduceDefence(5);
+                    enemy.reduceDefence(5,3);
                     result.addEvent(enemy.getType() + "'s defence has been reduced!");
                 }
                 break;
@@ -44,8 +66,8 @@ public class CombatSystem {
                 break;
             case HAMMER:
                 if (Math.random() < 0.15) {
-                    enemy.reduceArmour(10, 3);
-                    result.addEvent(enemy.getType() + "'s armour has been temporarily reduced!");
+                    enemy.reduceArmour(10);
+                    result.addEvent(enemy.getType() + "'s armour has been reduced!");
                 }
                 break;
             case SPEAR:
@@ -53,6 +75,7 @@ public class CombatSystem {
                 break;
             case BOW:
                 // Implement bow logic
+                //Actually, bow doesn't need any special effect logic. In combat system, implement the first turn attack bonus.
                 break;
             case SCYTHE:
                 int healAmount = damage / 4;

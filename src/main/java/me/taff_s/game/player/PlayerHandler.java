@@ -3,8 +3,7 @@ package me.taff_s.game.player;
 import java.io.*;
 import java.net.*;
 import java.util.concurrent.*;
-import me.taff_s.game.player.Player;
-import me.taff_s.game.player.PlayerMessenger;
+// same-package classes don't need importing
 import me.taff_s.game.core.GameEventManager;
 
 public class PlayerHandler implements Runnable {

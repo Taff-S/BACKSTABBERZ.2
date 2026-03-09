@@ -1,9 +1,14 @@
 package me.taff_s.game.enemies;
 
 import java.util.EnumMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 import me.taff_s.game.player.Player;
 
 import me.taff_s.game.items.weapons.DamageType;
+
+import me.taff_s.game.effects.TimedEffect;
 
 public abstract class Enemy{
     public String type;
@@ -12,16 +17,19 @@ public abstract class Enemy{
     private int minDamage;
     private int maxDamage;
     private int coinDrop;
-    //private int defence; //with armour
-    //protected Armour armour = null;
+
     protected boolean armoured = false; //whether the enemy has armour
     protected int naturalDefence; // without armour
     protected boolean armourBroken = false;
+
     protected boolean defenceDrop = false; //temporary reduction from axe weapon type
     protected EnumMap<DamageType, Double> damageModifiers = new EnumMap<>(DamageType.class);
     public String variant;
     protected int armourHealth = 0;
     protected int maxArmourHealth = 0;
+
+    private final List<TimedEffect> timedEffects = new ArrayList<>();
+    private boolean concussed = false;
 
     public Enemy(String variant, String name, int health, int maxHealth, int lowDmg, int highDmg, int reward, int defence, boolean isArmoured) {
         this.variant = variant;
@@ -88,9 +96,9 @@ public abstract class Enemy{
         int finalDmg = (int) Math.round(dmg * effectiveness);
         if (armoured && !armourBroken && armourHealth > 0) {
             if (finalDmg >= armourHealth) {
-                finalDmg -= armourHealth;
                 armourHealth = 0;
                 armourBroken = true;
+                finalDmg = 0; // No overflow damage when armor breaks
             } else {
                 armourHealth -= finalDmg;
                 finalDmg = 0;
@@ -106,24 +114,59 @@ public abstract class Enemy{
         return minDamage + (int)(Math.random() * (maxDamage - minDamage + 1));
     }
 
-    public void reduceAttack(int amount) {
+    public void reduceAttack(int amount, int turns) {
         this.minDamage = Math.max(0, this.minDamage - amount);
         this.maxDamage = Math.max(this.minDamage, this.maxDamage - amount);
     }
 
-    public void reduceDefence(int amount) {
+    public void reduceDefence(int amount, int turns) {
         this.naturalDefence = Math.max(0, this.naturalDefence - amount);
     }
 
     public void applyConcussion(int turns) {
-        // Placeholder: concussion mechanics not implemented yet
+        this.concussed = true;
+        addEffect(new TimedEffect() {
+            private int remaining = Math.max(0, turns);
+
+            @Override
+            public void onTurnStart(Object target) {
+                remaining--;
+                if (remaining <= 0) {
+                    if (target instanceof Enemy) {
+                        ((Enemy) target).concussed = false;
+                    }
+                }
+            }
+
+            @Override
+            public boolean isExpired() {
+                return remaining <= 0;
+            }
+        });
     }
 
-    public void reduceArmour(int amount, int turns) {
+    public void reduceArmour(int amount) {
         if (this.armoured) {
             this.armourHealth = Math.max(0, this.armourHealth - amount);
             if (this.armourHealth == 0) this.armourBroken = true;
         }
+    }
+
+    public void addEffect(TimedEffect effect) {
+        if (effect != null) timedEffects.add(effect);
+    }
+
+    public void onTurnStart() {
+        Iterator<TimedEffect> it = timedEffects.iterator();
+        while (it.hasNext()) {
+            TimedEffect e = it.next();
+            e.onTurnStart(this);
+            if (e.isExpired()) it.remove();
+        }
+    }
+
+    public boolean isConcussed() {
+        return concussed;
     }
 
     public void setDefence(int newDefence) {
