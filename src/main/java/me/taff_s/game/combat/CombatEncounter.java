@@ -12,6 +12,7 @@ import java.util.concurrent.*;
 import me.taff_s.game.player.Player;
 import me.taff_s.game.player.PlayerHandler;
 import me.taff_s.game.enemies.Enemy;
+import me.taff_s.game.items.weapons.WeaponClass;
 import me.taff_s.game.enemies.types.Dragon;
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.charms.ShieldCharm;
@@ -49,7 +50,7 @@ public class CombatEncounter {
 
         for (Player player : List.of(player1, player2)) {
             Weapon weapon = player.getEquipment().getEquippedWeapon();
-            if (weapon != null && weapon.getWeaponClass() == Weapon.WeaponClass.BOW) {
+            if (weapon != null && weapon.getWeaponClass() == WeaponClass.BOW) {
                 // Apply first turn attack bonus for bow
                 CombatResult bowBonus = new CombatResult();
                 int bonusDamage = weapon.getDamage() / 2; // 50% extra damage on first turn
@@ -59,7 +60,7 @@ public class CombatEncounter {
             }
         }
 
-
+        
 
         while (player1.living() && player2.living() && enemy.living()) {
 
@@ -145,3 +146,8 @@ public class CombatEncounter {
         }
     }
 }
+
+//Notes:
+//add more actions for players (use items, activate charms, etc)
+//more enemy behaviours and types. maybe use a json to store
+//potentially add option to backstab other player after an encounter

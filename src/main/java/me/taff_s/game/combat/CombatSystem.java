@@ -71,7 +71,7 @@ public class CombatSystem {
                 }
                 break;
             case SPEAR:
-                // Implement spear logic
+                // future spear effects could be implemented here (ignore armour?, etc)
                 break;
             case BOW:
                 // Implement bow logic

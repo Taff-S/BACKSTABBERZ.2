@@ -8,7 +8,7 @@ import java.util.List;
 import me.taff_s.game.items.Item;
 import me.taff_s.game.items.Usable;
 import me.taff_s.game.items.Equippable;
-import me.taff_s.game.items.potions.Timed;
+import me.taff_s.game.effects.TimedEffect;
 import me.taff_s.game.items.potions.PotionEffect;
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponLibrary;
@@ -34,7 +34,7 @@ public class Player {
     Inventory inventory = new Inventory();
     EquippedItems equipment;
 
-    private List<Timed> activeTimedEffects = new ArrayList<>();
+    private List<TimedEffect> activeTimedEffects = new ArrayList<>();
 
     boolean dStance;
     public int dStanceCounter = 2;
@@ -304,8 +304,8 @@ public class Player {
      */
     public void applyEffect(PotionEffect effect) {
         effect.apply(this);
-        if (effect instanceof Timed) {
-            activeTimedEffects.add((Timed) effect);
+        if (effect instanceof TimedEffect) {
+            activeTimedEffects.add((TimedEffect) effect);
         }
     }
 
@@ -313,9 +313,9 @@ public class Player {
      * Updates all active timed effects at the start of the player's turn.
      */
     public void onTurnStart() {
-        Iterator<Timed> iterator = activeTimedEffects.iterator();
+        Iterator<TimedEffect> iterator = activeTimedEffects.iterator();
         while (iterator.hasNext()) {
-            Timed effect = iterator.next();
+            TimedEffect effect = iterator.next();
             effect.onTurnStart(this);
             if (effect.isExpired()) {
                 iterator.remove();

@@ -3,14 +3,24 @@ package me.taff_s.game.world;
 import java.util.ArrayList;
 import java.util.List;
 import me.taff_s.game.items.Item;
+import me.taff_s.game.items.armour.ArmourLibrary;
+import me.taff_s.game.items.potions.PotionLibrary;
+import me.taff_s.game.items.weapons.WeaponLibrary;
 import me.taff_s.game.player.Player;
-import me.taff_s.game.player.PlayerHandler;
 
-public class Shop {
+public class Shop implements Encounter {
     private List<Item> stock = new ArrayList<>();
     
     public Shop(List<Item> startingStock) {
         this.stock.addAll(startingStock);
+    }
+
+    public static Shop createRandomShop() {
+        List<Item> shopStock = new ArrayList<>();
+        shopStock.add(PotionLibrary.getRandomHealingPotion());
+        shopStock.add(PotionLibrary.getRandomStrengthPotion());
+        shopStock.add(Math.random() < 0.5 ? WeaponLibrary.getRandomShopWeapon() : ArmourLibrary.getRandomArmour());
+        return new Shop(shopStock);
     }
 
     public String showStockDetailed() {
@@ -29,7 +39,7 @@ public class Shop {
         player.sendMessage("You continue to the next room and as soon as you step in, you feel the tension lift from your shoulders. The air is warm, spicy – not oppressive, but in a comforting way. You could swear that you can smell your mother's tastiest recipe.\n\"Welcome welcome, to my humble little shop! One item each, and I only take gold. None of that trading nonsense.\"");
     } 
 
-    public void interact(Player player, PlayerHandler handler) {
+    public void interact(Player player) {
         displayIntro(player);
     
         boolean shopping = true;
@@ -86,5 +96,12 @@ public class Shop {
                 player.sendMessage("Invalid selection.");
             }
         }
+    }
+
+    @Override
+    public void execute(Player player1, Player player2) {
+        // Allow each player to shop in turn
+        interact(player1);
+        interact(player2);
     }
 }

@@ -6,7 +6,7 @@ import me.taff_s.game.player.RestChoice;
 
 public class NeedleCharm extends Charm {
     public NeedleCharm() {
-        super("The Needle", "Steal 1 HP from your resting partner.", 50);
+        super("The Needle", "Steal some HP from your resting partner.", 50);
     }
 
     @Override

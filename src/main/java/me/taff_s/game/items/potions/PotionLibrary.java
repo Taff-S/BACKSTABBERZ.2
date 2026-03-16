@@ -41,6 +41,10 @@ public class PotionLibrary {
         () -> new StrengthEffect(new BasePotionEffect(), 3, 5)
     );    
 
+    //rarities/tiers for potions in the future? maybe add more effects like defence, speed, etc. and have different rarities for them
+    //combinations of effects in the future, making use of effect decorators
+    //use of potions during combat? (maybe other items too)
+
         
     private static final List<Potion> healingPotions = Arrays.asList(
         LESSER_HEAL, HEAL, GREATER_HEAL

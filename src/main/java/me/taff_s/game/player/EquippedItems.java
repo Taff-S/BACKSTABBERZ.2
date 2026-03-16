@@ -15,7 +15,7 @@ public class EquippedItems {
     private Charm charm2 = NoCharm.getInstance();
 
     //i want equipped item to have a static length (4)
-    //always same order (weaponn, armour, charm1, charm2)
+    //always same order (weapon, armour, charm1, charm2)
     //when element is empty, have a default value
         //e.g when weapon slot is empty, have fists out
 

@@ -2,10 +2,10 @@ package me.taff_s.game.items.potions;
 
 import me.taff_s.game.items.potions.EffectDecorator;
 import me.taff_s.game.items.potions.PotionEffect;
-import me.taff_s.game.items.potions.Timed;
+import me.taff_s.game.effects.TimedEffect;
 import me.taff_s.game.player.Player;
 
-public class StrengthEffect extends EffectDecorator implements Timed {
+public class StrengthEffect extends EffectDecorator implements TimedEffect {
 
     private int strengthBoost;
     public int remainingTurns;
@@ -23,12 +23,13 @@ public class StrengthEffect extends EffectDecorator implements Timed {
     }
 
     @Override
-    public void onTurnStart(Player player) {
-        super.onTurnStart(player);
+    public void onTurnStart(Object target) {
+        if (!(target instanceof Player)) return;
+        Player player = (Player) target;
+        super.onTurnStart(player);  // Assuming EffectDecorator handles this
         remainingTurns--;
-        
         if (isExpired()) {
-            player.changeStrength(-strengthBoost); 
+            player.changeStrength(-strengthBoost);
             player.sendMessage("Strength buff expired.");
         }
     }

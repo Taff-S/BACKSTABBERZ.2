@@ -2,7 +2,6 @@ package me.taff_s.game.net;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -13,9 +12,7 @@ import me.taff_s.game.core.CoinDisplayObserver;
 import me.taff_s.game.core.DragonGameManager;
 import me.taff_s.game.core.DragonNarrator;
 import me.taff_s.game.items.potions.PotionLibrary;
-import me.taff_s.game.items.weapons.WeaponLibrary;
-import me.taff_s.game.items.armour.ArmourLibrary;
-import me.taff_s.game.items.Item;
+import me.taff_s.game.world.EncounterType;
 import me.taff_s.game.world.RoomManager;
 import me.taff_s.game.world.RoomType;
 import me.taff_s.game.enemies.EnemyFactory;
@@ -25,6 +22,8 @@ import me.taff_s.game.combat.CombatEncounter;
 import me.taff_s.game.combat.CombatResult;
 import me.taff_s.game.world.Shop;
 import me.taff_s.game.world.RestRoom;
+import me.taff_s.game.world.MimicEncounter;
+import me.taff_s.game.world.BloodMachineEcounter;
 
 public class GameServer {
     private static final int PORT = 5000;
@@ -132,22 +131,42 @@ public class GameServer {
                         case ENCOUNTER: {
                             player1.sendMessage("---------------------------------------------------------");
                             player2.sendMessage("---------------------------------------------------------");
-                            List<Item> shopStock1 = new ArrayList<>();
-                            shopStock1.add(PotionLibrary.getRandomHealingPotion());
-                            shopStock1.add(PotionLibrary.getRandomStrengthPotion());
-                            shopStock1.add(Math.random() < 0.5 ? WeaponLibrary.getRandomShopWeapon() : ArmourLibrary.getRandomArmour());
-                            
-                            List<Item> shopStock2 = new ArrayList<>();
-                            shopStock2.add(PotionLibrary.getRandomHealingPotion());
-                            shopStock2.add(PotionLibrary.getRandomStrengthPotion());
-                            shopStock2.add(Math.random() < 0.5 ? WeaponLibrary.getRandomShopWeapon() : ArmourLibrary.getRandomArmour());
-                            
-                            Shop shop1 = new Shop(shopStock1);
-                            Shop shop2 = new Shop(shopStock2);
-                            
-                            shop1.interact(player1, playerHandlers.get(1));
-                            shop2.interact(player2, playerHandlers.get(2));
-                            
+
+                            EncounterType encounterType = EncounterType.getRandomEncounter();
+                            player1.sendMessage("You encounter: " + encounterType);
+                            player2.sendMessage("You encounter: " + encounterType);
+
+                            switch (encounterType) {
+                                case SHOP:
+                                    Shop shop1 = Shop.createRandomShop();
+                                    Shop shop2 = Shop.createRandomShop();
+                                    shop1.interact(player1);
+                                    shop2.interact(player2);
+                                    break;
+                                case MIMIC:
+                                    new MimicEncounter().interact(player1, player2);
+                                    break;
+                                case BLOODMACHINE:
+                                    new BloodMachineEcounter().interact(player1, player2);
+                                    break;
+                                case TREASURE:
+                                    player1.sendMessage("You found a treasure room! (Not yet implemented.)");
+                                    player2.sendMessage("You found a treasure room! (Not yet implemented.)");
+                                    break;
+                                case VSHOP:
+                                    player1.sendMessage("You found a vampire shop! (Not yet implemented.)");
+                                    player2.sendMessage("You found a vampire shop! (Not yet implemented.)");
+                                    break;
+                                case VQUEEN:
+                                    player1.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
+                                    player2.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
+                                    break;
+                                case BLACKSMITH:
+                                    player1.sendMessage("You see a blacksmith's forge... (Not yet implemented.)");
+                                    player2.sendMessage("You see a blacksmith's forge... (Not yet implemented.)");
+                                    break;
+                            }
+
                             break;
                         }
                         case REST: {

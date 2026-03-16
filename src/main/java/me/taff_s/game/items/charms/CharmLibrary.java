@@ -18,6 +18,7 @@ public class CharmLibrary {
     public static final Charm BACKSTABBER = new BackStabberCharm();
     public static final Charm FANG = new FangCharm();
     public static final Charm SHIELD = new ShieldCharm();
+    public static final Charm FEATHER = new FeatherCharm();
     
 
     private static final List<Charm> charms = Arrays.asList(
@@ -27,6 +28,10 @@ public class CharmLibrary {
     public static Charm getRandomCharm() {
         return charms.get(rand.nextInt(charms.size()));
     }
+
+    //split charms into buyable, and non buyable
+    //perhaps add tiers/rarity to charms in the future
+    //Remember to update the shop to only sell buyable charms (like in weaponslibrary)
 
     public static List<Charm> getAllCharms() {
         return charms;

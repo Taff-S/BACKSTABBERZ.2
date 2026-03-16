@@ -141,3 +141,6 @@ This document summarizes all modifications, additions, and changes made to the c
 
 *Generated on: March 9, 2026*
 *Status: Uncommitted changes pending review and commit*
+
+Reminder that changelogs should probably be ammended when back home to include the next steps (new rooms, gui inclusion, etc)
+(maybe learn how to do graphic bits in spare time lol)
