@@ -75,7 +75,7 @@ public class Player {
         this.eventManager = eventManager;
 
         // Starting equipment
-        equipment.setWeapon(WeaponLibrary.butterKnife);
+        equipment.setWeapon(WeaponLibrary.executionerSword);
         equipment.setArmour(ArmourLibrary.clothShirt);
     }
 

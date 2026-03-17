@@ -25,19 +25,20 @@ public class Inventory{
         items.remove(item);
     }
 
+    private String formatItemName(Item item) {
+        return item.getItemName() + (item.isBroken() ? " [Broken]" : "");
+    }
+
     public String showInventory() {
-        String m = "";
         if (items.isEmpty()) {
-            m = "Inventory is empty.";
-            return m;
+            return "Inventory is empty.";
         }
-        else{
-            m = "Inventory:\n";
-            for (Item item : items) {
-                m += "- " + item.getItemName() +"\n";
-            }
-            return m;
+
+        String m = "Inventory:\n";
+        for (Item item : items) {
+            m += "- " + formatItemName(item) + "\n";
         }
+        return m;
     }
 
     public String showInventoryDetailed() {
@@ -49,7 +50,7 @@ public class Inventory{
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             sb.append("[").append(i + 1).append("] ")
-              .append(item.getItemName())
+              .append(formatItemName(item))
               .append(" - ").append(item.getDescription())
               .append("\n");
         }
@@ -61,7 +62,7 @@ public class Inventory{
     EquippedItems equipped = player.getEquipment();
 
     while (true) {
-        handler.sendMulti(
+        handler.getMessenger().sendMulti(
             inventory.showInventoryDetailed(),
             "\nCurrently Equipped:",
             "Gold: " + player.getCoins(),
@@ -75,7 +76,7 @@ public class Inventory{
             "[3] Use potion",
             "[4] Exit inventory"
         );
-        String choice = handler.prompt("> ");
+        String choice = handler.prompt("");
         if (choice == null) break;
 
         switch (choice.trim()) {

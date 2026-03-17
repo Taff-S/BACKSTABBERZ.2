@@ -1,7 +1,5 @@
 package me.taff_s.game.world;
 import me.taff_s.game.player.Player;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MimicEncounter {
     //Premise: Player 1 and 2 enter a room. A chest greets them and offers them conditional rewards

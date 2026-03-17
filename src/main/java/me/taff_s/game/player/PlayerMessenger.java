@@ -25,6 +25,17 @@ public class PlayerMessenger {
         }
     }
 
+    public void sendMulti(String... message) {
+        if (!connected) return;
+        try {
+            out.println(String.join("\n", message));
+            out.flush();
+        } catch (Exception e) {
+            System.err.println("Failed to send message: " + e.getMessage());
+            connected = false;
+        }
+    }
+
     public String prompt(String message) {
         send(message);
         send(">"); // Prompt marker

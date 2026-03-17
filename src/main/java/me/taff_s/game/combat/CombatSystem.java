@@ -2,6 +2,7 @@ package me.taff_s.game.combat;
 
 import me.taff_s.game.player.Player;
 import me.taff_s.game.enemies.Enemy;
+import me.taff_s.game.items.weapons.NoWeapon;
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponClass;
 import me.taff_s.game.items.charms.Charm;
@@ -45,6 +46,15 @@ public class CombatSystem {
         weapon.reduceDurability(1);
 
         result.addEvent(attacker.getName() + " hits " + enemy.getType() + " for " + damage + " damage!");
+
+        // If the weapon breaks from this attack, swap it out and return it to the inventory.
+        if (weapon.isBroken()) {
+            result.addEvent(attacker.getName() + "'s " + weapon.getItemName() + " breaks!");
+            if (!attacker.getInventory().getItems().contains(weapon)) {
+                attacker.getInventory().addItem(weapon);
+            }
+            attacker.getEquipment().setWeapon(NoWeapon.getInstance());
+        }
         switch (weapon.getWeaponClass()) {
             case SWORD:
                 if (Math.random() < 0.2) {

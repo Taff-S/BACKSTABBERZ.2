@@ -46,9 +46,9 @@ public class Shop implements Encounter {
     
         while (shopping) {
             player.sendMessage(showStockDetailed());
-            player.sendMessage("Type the number of the item to buy, 'i#' to inspect (e.g. i2), or 'leave' to leave the shop.");
+            //player.sendMessage("Type the number of the item to buy, 'i#' to inspect (e.g. i2), or 'leave' to leave the shop.");
     
-            String choice = player.userInput("> ").trim().toLowerCase();
+            String choice = player.getHandler().getMessenger().prompt("Type the number of the item to buy, 'i#' to inspect (e.g. i2), or 'leave' to leave the shop.").trim().toLowerCase();
     
             if (choice.equals("leave")) {
                 player.sendMessage("You leave the shop.\n");

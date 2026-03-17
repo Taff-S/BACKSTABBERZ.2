@@ -35,6 +35,37 @@ public class GameServer {
     private static final ConcurrentHashMap<Integer, Socket> playerSockets = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, PlayerHandler> playerHandlers = new ConcurrentHashMap<>();
 
+    private static void runSimultaneously(Runnable r1, Runnable r2) {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        try {
+            executor.submit(r1);
+            executor.submit(r2);
+        } finally {
+            executor.shutdown();
+            try {
+                executor.awaitTermination(5, TimeUnit.MINUTES);
+            } catch (InterruptedException ignored) {
+            }
+        }
+    }
+
+    private static boolean handleDeathAndResetIfNeeded(Player player1, Player player2, int run) {
+        if (player1.living() && player2.living()) {
+            return false;
+        }
+
+        DragonGameManager.handleRunCompletion(player1, player2);
+        player1.setHealth(player1.getMaxHealth());
+        player2.setHealth(player2.getMaxHealth());
+
+        if (run == 2) {
+            System.out.println("Game Over. Server shutting down.");
+            System.exit(0);
+        }
+
+        return true;
+    }
+
     public static final String YELLOW = "\u001B[33m";
     public static final String GREEN = "\u001B[32m";
     public static final String RED = "\u001B[31m";
@@ -99,8 +130,9 @@ public class GameServer {
                         player1.sendMessage("---------------------------------------------------------");
                         player2.sendMessage("---------------------------------------------------------");
 
-                        String enemyType = EnemyFactory.getRandomEnemyName();
-                        Enemy enemy1 = EnemyFactory.create(enemyType);
+                        //String enemyType = EnemyFactory.getRandomEnemyName();
+                        //Enemy enemy1 = EnemyFactory.create(enemyType);
+                        Enemy enemy1 = EnemyFactory.create("slime","standard");
 
                         enemy1.display(player2);
                         enemy1.display(player1);
@@ -138,10 +170,10 @@ public class GameServer {
 
                             switch (encounterType) {
                                 case SHOP:
-                                    Shop shop1 = Shop.createRandomShop();
-                                    Shop shop2 = Shop.createRandomShop();
-                                    shop1.interact(player1);
-                                    shop2.interact(player2);
+                                    runSimultaneously(
+                                        () -> Shop.createRandomShop().interact(player1),
+                                        () -> Shop.createRandomShop().interact(player2)
+                                    );
                                     break;
                                 case MIMIC:
                                     new MimicEncounter().interact(player1, player2);
@@ -174,13 +206,6 @@ public class GameServer {
                             player2.sendMessage("---------------------------------------------------------");
                             RestRoom restTime = new RestRoom(player1, player2);
                             restTime.enter(playerHandlers.get(1), playerHandlers.get(2));   
-
-                            if (!player1.living() || !player2.living()) {
-                                DragonGameManager.handleRunCompletion(player1,  player2);
-                                player1.setHealth(player1.getMaxHealth());
-                                player2.setHealth(player2.getMaxHealth());
-                                continue runLoop;
-                            }
                             break;
                         }
                         case BOSS: {
@@ -221,7 +246,16 @@ public class GameServer {
                             break;
                         }
                     }
+
+                    if (handleDeathAndResetIfNeeded(player1, player2, run)) {
+                        break;
+                    }
                 }
+
+                if (!player1.living() || !player2.living()) {
+                    continue;
+                }
+
                 DragonGameManager.handleRunCompletion(player1, player2); // Final run check
                 player1.setHealth(player1.getMaxHealth());
                 player2.setHealth(player2.getMaxHealth());

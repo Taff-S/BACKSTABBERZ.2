@@ -51,6 +51,10 @@ public class Weapon extends Item implements Equippable{
 
     @Override
     public void equip(Player player) {
+        if (isBroken()) {
+            player.sendMessage("You can't equip a broken weapon.");
+            return;
+        }
         player.getEquipment().setWeapon(this);
         player.sendMessage("Equipped weapon: " + getItemName());
     }
@@ -59,7 +63,9 @@ public class Weapon extends Item implements Equippable{
     public void unequip(Player player) {
         Weapon weapon = player.getEquipment().getEquippedWeapon();
         if (weapon != NoWeapon.getInstance()) {
-            player.getInventory().addItem(weapon);
+            if (!player.getInventory().getItems().contains(weapon)) {
+                player.getInventory().addItem(weapon);
+            }
             player.getEquipment().setWeapon(NoWeapon.getInstance());
         } else {
             player.sendMessage("No weapon equipped");
