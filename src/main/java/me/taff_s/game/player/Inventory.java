@@ -81,8 +81,8 @@ public class Inventory{
 
         switch (choice.trim()) {
             case "1": // Equip
-                handler.send("Enter the number of the item to equip:");
-                String itemChoice = handler.prompt("> ");
+                //handler.send("Enter the number of the item to equip:");
+                String itemChoice = handler.prompt("Enter the number of the item to equip:");
                 try {
                     int idx = Integer.parseInt(itemChoice) - 1;
                     Item selected = inventory.getItems().get(idx);
@@ -109,9 +109,13 @@ public class Inventory{
 
             case "2": // Unequip
                 handler.sendMulti("What do you want to unequip?",
-                    "[1] Weapon", "[2] Armour", "[3] Charm 1", "[4] Charm 2");
+                    "[1] Weapon", 
+                    "[2] Armour", 
+                    "[3] Charm 1", 
+                    "[4] Charm 2"
+                );
 
-                String unequipChoice = handler.prompt("> ");
+                String unequipChoice = handler.prompt("Enter the number of the slot to unequip:");
                 Item itemToUnequip = null;
 
                 switch (unequipChoice.trim()) {
@@ -149,8 +153,7 @@ public class Inventory{
                 }
                 break;
                 case "3":
-                handler.send("Enter the number of the item to use:");
-                String useChoice = handler.prompt("> ");
+                String useChoice = handler.prompt("Enter the number of the item to use:");
                 try {
                     int idx = Integer.parseInt(useChoice) - 1;
                     Item selected = inventory.getItems().get(idx);

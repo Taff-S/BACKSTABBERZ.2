@@ -102,7 +102,10 @@ public class GameServer {
                 playerCounter++;
             }
             
-            waitForPlayers(); // Ensures both players are ready before game starts
+            //waitForPlayers(); // Ensures both players are ready before game starts
+            playerHandlers.get(1).awaitReady(10, TimeUnit.MINUTES);
+            playerHandlers.get(2).awaitReady(10, TimeUnit.MINUTES);
+            players.values().forEach(p -> p.println("Both players are ready! The dungeon begins..."));
 
             Player player1 = playerObjects.get(1);
             Player player2 = playerObjects.get(2);
@@ -272,18 +275,18 @@ public class GameServer {
 
 
 
-    private static void waitForPlayers() {
-        while (true) {
-            if (readyPlayers.size() == 2 && readyPlayers.values().stream().allMatch(ready -> ready)) {
-                break;
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    // private static void waitForPlayers() {
+    //     while (true) {
+    //         if (readyPlayers.size() == 2 && readyPlayers.values().stream().allMatch(ready -> ready)) {
+    //             break;
+    //         }
+    //         try {
+    //             Thread.sleep(1000);
+    //         } catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
     
-        players.values().forEach(p -> p.println("Both players are ready! The dungeon begins..."));
-    }
+    //     players.values().forEach(p -> p.println("Both players are ready! The dungeon begins..."));
+    // }
 }
