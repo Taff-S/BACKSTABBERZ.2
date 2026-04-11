@@ -23,6 +23,10 @@ import me.taff_s.game.combat.CombatResult;
 import me.taff_s.game.world.Shop;
 import me.taff_s.game.world.RestRoom;
 import me.taff_s.game.world.MimicEncounter;
+import me.taff_s.game.world.VQueenEncounter;
+import me.taff_s.game.world.TreasureEncounter;
+import me.taff_s.game.world.VShop;
+import me.taff_s.game.world.BlacksmithEncounter;
 import me.taff_s.game.world.BloodMachineEcounter;
 
 public class GameServer {
@@ -193,12 +197,13 @@ public class GameServer {
                                     player2.sendMessage("You found a vampire shop! (Not yet implemented.)");
                                     break;
                                 case VQUEEN:
-                                    player1.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
-                                    player2.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
+                                    new VQueenEncounter().interact(player1, player2);
+                                    //player1.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
+                                    //player2.sendMessage("You have stumbled upon the vampire queen... (Not yet implemented.)");
                                     break;
                                 case BLACKSMITH:
-                                    player1.sendMessage("You see a blacksmith's forge... (Not yet implemented.)");
-                                    player2.sendMessage("You see a blacksmith's forge... (Not yet implemented.)");
+                                    new BlacksmithEncounter().interact(player1, player2);
+                                    //player1.sendMessage("You have stumbled upon the blacksmith");
                                     break;
                             }
 

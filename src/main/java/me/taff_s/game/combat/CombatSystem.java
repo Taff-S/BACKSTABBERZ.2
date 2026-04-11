@@ -42,6 +42,12 @@ public class CombatSystem {
         }
 
         int damage = weapon.getDamage();
+
+        // Fists special case: if equipped and base damage is 0, randomly do 0 or 1.
+        if (weapon instanceof NoWeapon && damage == 0) {
+            damage = Math.random() < 0.5 ? 0 : 1;
+        }
+
         enemy.isHit(damage, weapon.getDamageType());
         weapon.reduceDurability(1);
 
@@ -125,8 +131,13 @@ public class CombatSystem {
     public static CombatResult playerAttack(Player attacker, Player defender, Weapon weapon, boolean defenderDefending) {
         CombatResult result = new CombatResult();
         // Calculate damage, apply to defender, add events
-        // Example:
         int damage = weapon.getDamage();
+
+        // Fists special case: if equipped and base damage is 0, randomly do 0 or 1.
+        if (weapon instanceof NoWeapon && damage == 0) {
+            damage = Math.random() < 0.5 ? 0 : 1;
+        }
+
         if (defenderDefending) damage /= 2;
         defender.takeDamage(damage, defender.getEquipment().getEquippedArmour(), defenderDefending, false);
         result.addEvent(attacker.getName() + " attacks " + defender.getName() + " for " + damage + " damage!");

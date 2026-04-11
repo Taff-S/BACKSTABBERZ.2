@@ -2,7 +2,7 @@ package me.taff_s.game.world;
 
 import me.taff_s.game.player.Player;
 
-public class BloodMachineEcounter {
+public class BloodMachineEcounter implements Encounter{
     //Premise: Players enter a room with a machine.
     //They have the option to either give some health to gain money or give some money to gain health#
     
@@ -28,7 +28,7 @@ public class BloodMachineEcounter {
 
         // Get player 1's choice
         while (validChoice1 == false) {
-            String choice1 = player1.userInput("Player 1, What do you do?\n (1)Give Money \n(2)Give Blood \n(3)Do Nothing").trim().toLowerCase();
+            String choice1 = player1.userInput("Player 1, What do you do?\n(1)Give Money \n(2)Give Blood \n(3)Do Nothing").trim().toLowerCase();
             if (choice1.equals("1") || choice1.equals("2") || choice1.equals("3")) {
                 player1choice = choice1;
                 validChoice1 = true;
@@ -93,5 +93,11 @@ public class BloodMachineEcounter {
         } else {
             player2.sendMessage("You decide to do nothing and walk out of the room, waiting for your companion to do the same.\n");
         }
-    }   
+    }  
+    
+    @Override
+    public void execute(Player player1, Player player2) {
+        interact(player1, player2);
+    }
+    
 }

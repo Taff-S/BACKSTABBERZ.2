@@ -1,7 +1,7 @@
 package me.taff_s.game.world;
 import me.taff_s.game.player.Player;
 
-public class MimicEncounter {
+public class MimicEncounter implements Encounter{
     //Premise: Player 1 and 2 enter a room. A chest greets them and offers them conditional rewards
     //Works on game theory/prisoners dilemna. Players have the option to either reach for the chest or stay still
     //If both players reach for the chest, they both get a small reward but also take damage
@@ -9,7 +9,11 @@ public class MimicEncounter {
     //If neither player reach they both get medium rewards
 
     public void displayIntro(Player player){
-        player.sendMessage("You continue to the next room. There's a treasure chest in front of you. Before you two can argue about who saw it first, it slides open by itself, revealing rows upon rows of glistening white broken in two by a thick pink tongue. Before you can draw your weapons, the mimic speaks.\n\"Veeheehee! Gold for the two tempered? Or gold for the one greedy?\"\nThe mimic brokenly explains its game. The chest demands you both close your eyes and gives you the option to either keep your arm to your side or to reach forward into its gaping maw.");
+        player.getHandler().sendMulti("You continue to the next room. There's a treasure chest in front of you.",
+        "Before you two can argue about who saw it first, it slides open by itself, revealing rows upon rows of glistening white separated by a thick pink tongue.",
+        "But before you can draw your weapons, the mimic speaks.",
+        "\"Veeheehee! Gold for the two tempered? Or gold for the one greedy?\"",
+        "The mimic brokenly explains its game. The chest demands you both close your eyes and gives you the option to either keep your arm to your side or to reach forward into its gaping maw.");
     }
 
     public void interact(Player player1, Player player2) {
@@ -21,7 +25,7 @@ public class MimicEncounter {
 
         // Get player 1's choice
         while (true) {
-            String choice1 = player1.userInput("Player 1, do you reach for the chest? (yes/no) > ").trim().toLowerCase();
+            String choice1 = player1.userInput("Player 1, do you reach for the chest? (yes/no)").trim().toLowerCase();
             if (choice1.equals("yes")) {
                 player1Reaches = true;
                 break;
@@ -34,7 +38,7 @@ public class MimicEncounter {
 
         // Get player 2's choice
         while (true) {
-            String choice2 = player2.userInput("Player 2, do you reach for the chest? (yes/no) > ").trim().toLowerCase();
+            String choice2 = player2.userInput("Player 2, do you reach for the chest? (yes/no)").trim().toLowerCase();
             if (choice2.equals("yes")) {
                 player2Reaches = true;
                 break;
@@ -59,8 +63,8 @@ public class MimicEncounter {
                                 "\r\n" + //
                                 "He spits out some coins, which you both hastily scoop off the ground. As you both walk out, the sound of laughing echoes all the way to the next room. ");
             // Implement reward and damage logic here
-            player1.antiHeal(2);
-            player2.antiHeal(2);
+            player1.antiHeal(-2);
+            player2.antiHeal(-2);
             player1.coinChange(5);
             player2.coinChange(5);
         } else if (player1Reaches && !player2Reaches) {
@@ -102,6 +106,9 @@ public class MimicEncounter {
         }
     }
 
-
+    @Override
+    public void execute(Player player1, Player player2) {
+        interact(player1, player2);
+    }
 
 }
