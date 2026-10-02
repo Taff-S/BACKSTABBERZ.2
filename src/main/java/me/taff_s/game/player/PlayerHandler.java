@@ -43,7 +43,7 @@
 //             messenger.send("*** WELCOME TO BACKSTABBERS ***");
 
 //             String playerName = messenger.prompt("Please enter your name");
-//             this.player = new Player(playerName, 20, 20, 50, new GameEventManager());
+//             this.player = new Player(playerName, 200, 200, 50, new GameEventManager());
 //             this.player.setHandler(this);
 
 //             playerObjects.put(playerId, player);
@@ -184,7 +184,7 @@ public class PlayerHandler implements Runnable {
             playerName = playerName.trim();
             if (playerName.isEmpty()) playerName = "Player " + playerId;
 
-            this.player = new Player(playerName, 20, 20, 50, new GameEventManager());
+            this.player = new Player(playerName, 200, 200, 50, new GameEventManager());
             this.player.setHandler(this);
 
             playerObjects.put(playerId, player);

@@ -5,7 +5,7 @@ import me.taff_s.game.player.Player;
 
 public class AcidSlime extends Slime {
     public AcidSlime() {
-        super("acid","Acid Slime", 6, 6, 1, 3, 8,0, false);
+        super("acid","Acid Slime", 60, 60, 10, 30, 8,0, false);
         }
 
     @Override

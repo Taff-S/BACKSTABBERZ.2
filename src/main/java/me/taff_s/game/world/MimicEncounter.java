@@ -63,8 +63,8 @@ public class MimicEncounter implements Encounter{
                                 "\r\n" + //
                                 "He spits out some coins, which you both hastily scoop off the ground. As you both walk out, the sound of laughing echoes all the way to the next room. ");
             // Implement reward and damage logic here
-            player1.antiHeal(-2);
-            player2.antiHeal(-2);
+            player1.antiHeal(20);
+            player2.antiHeal(20);
             player1.coinChange(5);
             player2.coinChange(5);
         } else if (player1Reaches && !player2Reaches) {

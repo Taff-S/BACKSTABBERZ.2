@@ -42,7 +42,7 @@ public abstract class Enemy{
         this.naturalDefence = defence;
         this.armoured = isArmoured;
         if (isArmoured) {
-            this.maxArmourHealth = defence * 5; // Example: scale armour health by defence
+            this.maxArmourHealth = defence * 5 * 10;
             this.armourHealth = this.maxArmourHealth;
         }
         initDefaultModifiers();
@@ -208,4 +208,3 @@ public abstract class Enemy{
 
     public abstract void display(Player player);
 }
-

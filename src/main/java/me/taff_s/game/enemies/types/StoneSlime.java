@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 
 public class StoneSlime extends Slime {
     public StoneSlime() {
-        super("stone","Stone Slime", 10, 10, 1, 1, 8,0, false);
+        super("stone","Stone Slime", 100, 100, 10, 10, 8,0, false);
         setDamageModifier(DamageType.FORCE, 2.00); 
         setDamageModifier(DamageType.SLASH, 0.50); 
     }

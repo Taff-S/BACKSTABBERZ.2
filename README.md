@@ -123,7 +123,7 @@ Armour reduces incoming damage. Higher defence values mean a greater percentage 
 Potions can be used from the inventory during rest rooms:
 
 - **Healing Potions** — Lesser / Standard / Greater (3 / 7 / 12 HP)
-- **Strength Potions** — Lesser / Standard / Greater (temporary +1/+2/+3 damage for 5 turns)
+- **Strength Potions** — Lesser / Standard / Greater (temporary +10/+20/+30 damage for 5 turns)
 
 ### Charms
 

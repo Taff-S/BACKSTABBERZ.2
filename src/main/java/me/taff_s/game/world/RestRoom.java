@@ -86,13 +86,13 @@ package me.taff_s.game.world;
 //             } else if (c1 == RestChoice.BACKSTAB && c2 == RestChoice.PEACEFUL) {
 //                 ph1.send("You backstab your companion! They lose half their health!");
 //                 ph2.send("You were betrayed in your sleep! You lose half your health!");
-//                 p2.antiHeal(-1*p2.getHealth() / 2);
+//                 p2.antiHeal(p2.getHealth() / 2);
 //                 backStabEncounter.start(ph1, ph2);
             
 //             } else if (c2 == RestChoice.BACKSTAB && c1 == RestChoice.PEACEFUL) {
 //                 ph2.send("You backstab your companion! They lose half their health!");
 //                 ph1.send("You were betrayed in your sleep! You lose half your health!");
-//                 p1.antiHeal(-1*p1.getHealth() / 2);
+//                 p1.antiHeal(p1.getHealth() / 2);
 //                 backStabEncounter.start(ph1, ph2);
             
 //             } else if (c1 == RestChoice.BACKSTAB && c2 == RestChoice.WARY) {
@@ -108,19 +108,19 @@ package me.taff_s.game.world;
 //             } else {
 //                 if (c1 == RestChoice.PEACEFUL) {
 //                     ph1.send("You sleep peacefully and recover.");
-//                     p1.heal(7);
+//                     p1.heal(70);
 //                 }
 //                 if (c2 == RestChoice.PEACEFUL) {
 //                     ph2.send("You sleep peacefully and recover.");
-//                     p2.heal(7);
+//                     p2.heal(70);
 //                 }
 //                 if (c1 == RestChoice.WARY) {
 //                     ph1.send("You rest warily, healing a bit while staying alert.");
-//                     p1.heal(3);
+//                     p1.heal(30);
 //                 }
 //                 if (c2 == RestChoice.WARY) {
 //                     ph2.send("You rest warily, healing a bit while staying alert.");
-//                     p2.heal(3);
+//                     p2.heal(30);
 //                 }
 //             }
 //         } catch (IOException | InterruptedException | ExecutionException e) {
@@ -246,13 +246,13 @@ public class RestRoom {
             } else if (c1 == RestChoice.BACKSTAB && c2 == RestChoice.PEACEFUL) {
                 ph1.send("You backstab your companion! They lose half their health!");
                 ph2.send("You were betrayed in your sleep! You lose half your health!");
-                p2.antiHeal(-1 * p2.getHealth() / 2);
+                p2.antiHeal(p2.getHealth() / 2);
                 backStabEncounter.start(ph1, ph2);
 
             } else if (c2 == RestChoice.BACKSTAB && c1 == RestChoice.PEACEFUL) {
                 ph2.send("You backstab your companion! They lose half their health!");
                 ph1.send("You were betrayed in your sleep! You lose half your health!");
-                p1.antiHeal(-1 * p1.getHealth() / 2);
+                p1.antiHeal(p1.getHealth() / 2);
                 backStabEncounter.start(ph1, ph2);
 
             } else if (c1 == RestChoice.BACKSTAB && c2 == RestChoice.WARY) {
@@ -269,19 +269,19 @@ public class RestRoom {
             } else {
                 if (c1 == RestChoice.PEACEFUL) {
                     ph1.send("You sleep peacefully and recover.");
-                    p1.heal(7);
+                    p1.heal(70);
                 }
                 if (c2 == RestChoice.PEACEFUL) {
                     ph2.send("You sleep peacefully and recover.");
-                    p2.heal(7);
+                    p2.heal(70);
                 }
                 if (c1 == RestChoice.WARY) {
                     ph1.send("You rest warily, healing a bit while staying alert.");
-                    p1.heal(3);
+                    p1.heal(30);
                 }
                 if (c2 == RestChoice.WARY) {
                     ph2.send("You rest warily, healing a bit while staying alert.");
-                    p2.heal(3);
+                    p2.heal(30);
                 }
             }
         } catch (IOException e) {

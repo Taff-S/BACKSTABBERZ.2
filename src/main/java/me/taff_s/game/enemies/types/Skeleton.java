@@ -7,7 +7,7 @@ import me.taff_s.game.player.Player;
 public class Skeleton extends Enemy {
     
     public Skeleton() {
-        super("standard","Skeleton", 10, 10, 2, 2, 20, 2, false);
+        super("standard","Skeleton", 100, 100, 20, 20, 20, 2, false);
         setDamageModifier(DamageType.FORCE, 2.00); 
     }
     

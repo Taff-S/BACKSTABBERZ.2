@@ -43,9 +43,9 @@ public class CombatSystem {
 
         int damage = weapon.getDamage();
 
-        // Fists special case: if equipped and base damage is 0, randomly do 0 or 1.
+        // Fists special case: if equipped and base damage is 0, randomly do 0 or 10.
         if (weapon instanceof NoWeapon && damage == 0) {
-            damage = Math.random() < 0.5 ? 0 : 1;
+            damage = Math.random() < 0.5 ? 0 : 10;
         }
 
         enemy.isHit(damage, weapon.getDamageType());
@@ -64,7 +64,7 @@ public class CombatSystem {
         switch (weapon.getWeaponClass()) {
             case SWORD:
                 if (Math.random() < 0.2) {
-                    enemy.reduceAttack(5, 3);
+                    enemy.reduceAttack(50, 3);
                     result.addEvent(enemy.getType() + "'s attack has been reduced!");
                 }
                 break;
@@ -82,7 +82,7 @@ public class CombatSystem {
                 break;
             case HAMMER:
                 if (Math.random() < 0.15) {
-                    enemy.reduceArmour(10);
+                    enemy.reduceArmour(100);
                     result.addEvent(enemy.getType() + "'s armour has been reduced!");
                 }
                 break;
@@ -133,9 +133,9 @@ public class CombatSystem {
         // Calculate damage, apply to defender, add events
         int damage = weapon.getDamage();
 
-        // Fists special case: if equipped and base damage is 0, randomly do 0 or 1.
+        // Fists special case: if equipped and base damage is 0, randomly do 0 or 10.
         if (weapon instanceof NoWeapon && damage == 0) {
-            damage = Math.random() < 0.5 ? 0 : 1;
+            damage = Math.random() < 0.5 ? 0 : 10;
         }
 
         if (defenderDefending) damage /= 2;

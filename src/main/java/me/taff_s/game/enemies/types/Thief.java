@@ -6,7 +6,7 @@ import me.taff_s.game.enemies.Enemy;
 public class Thief extends Enemy {
 
     public Thief() {
-        super("standard","Thief", 12, 12, 1, 3, 35,2, false);
+        super("standard","Thief", 120, 120, 10, 30, 35,2, false);
     }
     
     public Thief(String variant, String name, int health, int maxHealth, int minDamage, int maxDamage, int reward, int defence, boolean isArmoured) {

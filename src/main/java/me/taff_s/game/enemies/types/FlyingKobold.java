@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 
 public class FlyingKobold extends Kobold {
     public FlyingKobold() {
-        super("flying", "Flying Kobold", 6, 6, 3, 4, 18, 0, false); 
+        super("flying", "Flying Kobold", 60, 60, 30, 40, 18, 0, false);
         setDamageModifier(DamageType.PIERCE, 2.00);
     }
 
