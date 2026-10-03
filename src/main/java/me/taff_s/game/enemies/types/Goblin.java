@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 public class Goblin extends Enemy {
 
     public Goblin(){
-        super("standard","Goblin",8, 8, 2, 3, 15, 2, false);
+        super("standard","Goblin",80, 80, 20, 30, 15, 2, false);
     }
     public Goblin(String variant, String name, int health, int maxHealth, int minDamage, int maxDamage, int reward, int defence, boolean isArmoured) {
         super(variant, name, health, maxHealth,minDamage, maxDamage, reward, defence, isArmoured); 

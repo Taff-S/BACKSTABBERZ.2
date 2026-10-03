@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 public class SwordGoblin extends Goblin {
     
     public SwordGoblin() {
-        super("sword","Sword Goblin", 9, 9, 3, 6, 15, 1, false);
+        super("sword","Sword Goblin", 90, 90, 30, 60, 15, 1, false);
     }
 
     @Override

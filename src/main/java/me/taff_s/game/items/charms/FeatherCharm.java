@@ -10,6 +10,6 @@ public class FeatherCharm extends Charm{
 
     @Override
     public void onRest(Player player) {
-        player.heal(2); 
+        player.heal(20);
     }
 }

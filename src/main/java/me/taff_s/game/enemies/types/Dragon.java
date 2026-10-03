@@ -7,7 +7,7 @@ public class Dragon extends Enemy {
     
 
     public Dragon() {
-        super("standard","The Golden Dragon", 30, 30, 5, 8, 300, 2, false); // 5-8 damage
+        super("standard","The Golden Dragon", 300, 300, 50, 80, 300, 2, false);
     }
 
     // public void resetDragonState() {

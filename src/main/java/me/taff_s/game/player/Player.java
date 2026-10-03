@@ -339,7 +339,7 @@ public class Player {
      * Damages the player without going below zero.
      */
     public void antiHeal(int amount) {
-        health = Math.max(health + amount, 0);
+        health = Math.max(health - amount, 0);
     }
 
     /**

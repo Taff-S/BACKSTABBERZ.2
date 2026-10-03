@@ -50,7 +50,7 @@ public class BloodMachineEcounter implements Encounter{
 
         if (player1choice.equals("1")) {
             player1.coinChange(-30);
-            player1.heal(3);
+            player1.heal(30);
             player1.sendMessage("You go to the right side of the machine. A slot with a number above it opens itself "
             + "as if sensing your presence. You don't know what that number is, but you guess 3 is "
             + "probably the right amount.\n As soon as you deposit the last coin, a syringe darts out "
@@ -61,7 +61,7 @@ public class BloodMachineEcounter implements Encounter{
             );
         } else if (player1choice.equals("2")) {
             player1.coinChange(45);
-            player1.antiHeal(2);
+            player1.antiHeal(20);
             player1.sendMessage("You go to the left of the machine, where a syringe connected to the mechanical box "
             + "by a tube dangles in the air. You pull the syringe and the tube extends with it.\n "
             + "You waste no time, jabbing it into your arm and pulling up the plunger.\n\n"
@@ -73,7 +73,7 @@ public class BloodMachineEcounter implements Encounter{
 
         if (player2choice.equals("1")) {
             player2.coinChange(-30);
-            player2.heal(3);
+            player2.heal(30);
             player2.sendMessage("You go to the right side of the machine. A slot with a number above it opens itself "
             + "as if sensing your presence. You don't know what that number is, but you guess 3 is "
             + "probably the right amount.\n As soon as you deposit the last coin, a syringe darts out "
@@ -84,7 +84,7 @@ public class BloodMachineEcounter implements Encounter{
             );
         } else if (player2choice.equals("2")) {
             player2.coinChange(45);
-            player2.antiHeal(2);
+            player2.antiHeal(20);
             player2.sendMessage("You go to the left of the machine, where a syringe connected to the mechanical box "
             + "by a tube dangles in the air. You pull the syringe and the tube extends with it.\n "
             + "You waste no time, jabbing it into your arm and pulling up the plunger.\n\n"

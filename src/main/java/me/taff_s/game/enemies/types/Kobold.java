@@ -7,7 +7,7 @@ import me.taff_s.game.player.Player;
 public class Kobold extends Enemy {
     
     public Kobold(){
-        super("standard", "Kobold", 8, 8, 3, 4, 18, 1, false);
+        super("standard", "Kobold", 80, 80, 30, 40, 18, 1, false);
         setDamageModifier(DamageType.SLASH, 2.00); 
     }
     public Kobold(String variant, String name, int health, int maxHealth, int minDamage, int maxDamage, int reward, int defence, boolean isArmoured) {

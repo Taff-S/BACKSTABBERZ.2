@@ -13,32 +13,32 @@ public class PotionLibrary {
     
     public static final Potion LESSER_HEAL = new Potion(
         "Lesser Healing Potion", "Heals the player a bit",  15,
-        () -> new HealingEffect(new BasePotionEffect(), 3)
+        () -> new HealingEffect(new BasePotionEffect(), 30)
     );
 
     public static final Potion HEAL = new Potion(
         "Healing Potion", "Heals the player",  25,
-        () -> new HealingEffect(new BasePotionEffect(), 7)
+        () -> new HealingEffect(new BasePotionEffect(), 70)
     );
 
     public static final Potion GREATER_HEAL = new Potion(
         "Greater Healing Potion", "Heals the player a lot",  45,
-        () -> new HealingEffect(new BasePotionEffect(), 12)
+        () -> new HealingEffect(new BasePotionEffect(), 120)
     );
 
     public static final Potion LESSER_STRENGTH = new Potion(
         "Lesser Strength Potion", "Strengthens the player a bit", 10,
-        () -> new StrengthEffect(new BasePotionEffect(), 1, 5)
+        () -> new StrengthEffect(new BasePotionEffect(), 10, 5)
     );
 
     public static final Potion STRENGTH = new Potion(
         "Strength Potion", "Strengthens the player", 45,
-        () -> new StrengthEffect(new BasePotionEffect(), 2, 5)
+        () -> new StrengthEffect(new BasePotionEffect(), 20, 5)
     );
 
     public static final Potion GREATER_STRENGTH = new Potion(
         "Greater Strength Potion", "Strengthens the player a lot", 65,
-        () -> new StrengthEffect(new BasePotionEffect(), 3, 5)
+        () -> new StrengthEffect(new BasePotionEffect(), 30, 5)
     );    
 
     //rarities/tiers for potions in the future? maybe add more effects like defence, speed, etc. and have different rarities for them

@@ -5,7 +5,7 @@ import me.taff_s.game.player.Player;
 
 public class BowSkeleton extends Skeleton {
     public BowSkeleton() {
-        super("bow","Bow Skeleton", 10, 10, 3, 4, 20, 1, false); 
+        super("bow","Bow Skeleton", 100, 100, 30, 40, 20, 1, false);
     }
 
     @Override

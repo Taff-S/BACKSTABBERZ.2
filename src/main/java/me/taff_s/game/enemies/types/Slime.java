@@ -7,7 +7,7 @@ import me.taff_s.game.player.Player;
 public class Slime extends Enemy {
 
     public Slime() {
-        super("standard","Slime", 6, 6, 1, 1, 8,0, false);
+        super("standard","Slime", 60, 60, 10, 10, 8,0, false);
         setDamageModifier(DamageType.FORCE, 0.50); 
         setDamageModifier(DamageType.PIERCE, 0.50); 
     }

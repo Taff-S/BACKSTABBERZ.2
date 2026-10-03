@@ -5,7 +5,7 @@ import me.taff_s.game.player.Player;
 
 public class SpearKobold extends Kobold {
     public SpearKobold() {
-        super("spear","Kobold", 8, 8, 4, 5, 18, 2, false); 
+        super("spear","Kobold", 80, 80, 40, 50, 18, 2, false);
     }
 
     @Override

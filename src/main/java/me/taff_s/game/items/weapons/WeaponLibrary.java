@@ -24,7 +24,7 @@ public class WeaponLibrary {
     public static final Weapon longSword = new Weapon("Longsword", "A heavier sword with greater reach", 35, 50, WeaponClass.SWORD, DamageType.SLASH, 20);
     
     public static final Weapon oldRoyalBlade = new Weapon("Old Royal Blade", "An ornate sword once wielded by a noble", 55, 60, WeaponClass.SWORD, DamageType.SLASH, 7);
-    public static final Weapon executionerSword = new Weapon("Executioner's Sword", "Heavy and brutal, meant to end fights fast", 60, 7, WeaponClass.SWORD, DamageType.SLASH, 24);
+    public static final Weapon executionerSword = new Weapon("Executioner's Sword", "Heavy and brutal, meant to end fights fast", 60, 70, WeaponClass.SWORD, DamageType.SLASH, 24);
 
 
 
@@ -34,7 +34,7 @@ public class WeaponLibrary {
 
     public static final Weapon ironAxe = new Weapon("Iron Axe", "A sharpened and reliable iron axe", 25, 30, WeaponClass.AXE, DamageType.SLASH,15);
     public static final Weapon battleAxe = new Weapon("Battle Axe", "A weighty axe meant for war", 30, 40, WeaponClass.AXE, DamageType.SLASH,18);
-    public static final Weapon boneSplitter = new Weapon("Bone Splitter", "Heavy enough to crack bone with ease", 35, 5, WeaponClass.AXE, DamageType.SLASH,20);
+    public static final Weapon boneSplitter = new Weapon("Bone Splitter", "Heavy enough to crack bone with ease", 35, 50, WeaponClass.AXE, DamageType.SLASH,20);
    
     public static final Weapon greatAxe = new Weapon("Great Axe", "An imposing axe with a huge, lethal head", 50, 60, WeaponClass.AXE, DamageType.SLASH,22);
     public static final Weapon twinBladeAxe = new Weapon("Twinblade Axe", "Double-edged and doubly dangerous", 55, 70, WeaponClass.AXE, DamageType.SLASH,24);
@@ -74,7 +74,7 @@ public class WeaponLibrary {
 
 
 
-    public static final Weapon makeshiftBow = new Weapon("Makeshift Bow", "Strung with twine and hope", 7, 1, WeaponClass.BOW, DamageType.PIERCE, 7);
+    public static final Weapon makeshiftBow = new Weapon("Makeshift Bow", "Strung with twine and hope", 7, 10, WeaponClass.BOW, DamageType.PIERCE, 7);
     public static final Weapon shortBow = new Weapon("ShortBow", "A shoddy shortbow, alongside enough arrows to last till the dungeon ends", 5, 20, WeaponClass.BOW, DamageType.PIERCE, 9);
     public static final Weapon bow = new Weapon("Bow", "A sturdy bow with many bolts to fire", 25, 30, WeaponClass.BOW, DamageType.PIERCE, 18);
     

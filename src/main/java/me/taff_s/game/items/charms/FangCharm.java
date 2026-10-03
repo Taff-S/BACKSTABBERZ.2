@@ -10,7 +10,7 @@ public class FangCharm extends Charm {
 
     @Override
     public void modifyStats(Player player) {
-        player.changeStrength(1);
+        player.changeStrength(10);
     }
 
 }

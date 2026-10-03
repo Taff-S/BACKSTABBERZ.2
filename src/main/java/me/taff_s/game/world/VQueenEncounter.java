@@ -69,9 +69,9 @@ public class VQueenEncounter implements Encounter{
                 "\"Ooh, so rich.\", she says lethargically, brushing a runaway rivulet of blood off her cheek. She drops you unceremoniously on the ground, your vision swimming as you struggle to stay conscious.",
                 "\"Now, out of my sight, before I get a free sample of you too.\"",
                 "Your \'companion\' helps you to your feet, avoiding any eye contact as you both wordlessly exit the room.",
-                "You lose 3 health"
+                "You lose 30 health"
             );
-            hostage.antiHeal(3);
+            hostage.antiHeal(30);
         } 
 
     }

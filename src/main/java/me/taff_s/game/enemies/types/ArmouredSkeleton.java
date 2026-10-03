@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 
 public class ArmouredSkeleton extends Skeleton {
     public ArmouredSkeleton() {
-        super("armoured","Armoured Skeleton", 10, 10, 2, 2, 20, 10, true); 
+        super("armoured","Armoured Skeleton", 100, 100, 20, 20, 20, 10, true);
         setDamageModifier(DamageType.FORCE, 4.00); 
     }
 

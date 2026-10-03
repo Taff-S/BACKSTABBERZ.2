@@ -6,7 +6,7 @@ import me.taff_s.game.player.Player;
 
 public class ArmouredGoblin extends Goblin {
     public ArmouredGoblin() {
-        super("armoured","Armoured Goblin",10, 10, 2, 3, 15, 5, true);
+        super("armoured","Armoured Goblin",100, 100, 20, 30, 15, 5, true);
         setDamageModifier(DamageType.FORCE, 2.00); 
     }
     

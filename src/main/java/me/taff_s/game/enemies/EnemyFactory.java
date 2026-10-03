@@ -30,6 +30,9 @@ public class EnemyFactory {
             "standard", StandardKobold::new,
             "flying", FlyingKobold::new,
             "spear", SpearKobold::new
+        ),
+        "thief", Map.of(
+            "standard", StandardThief::new
         )
     );
     
