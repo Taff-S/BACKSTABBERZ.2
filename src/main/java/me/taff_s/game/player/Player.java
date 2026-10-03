@@ -50,6 +50,11 @@ public class Player {
     private GameEventManager eventManager;
 
 
+    public static final String YELLOW = "\u001B[33m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String RED = "\u001B[31m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String RESET = "\u001B[0m";
     /*==================================================
       CONSTRUCTORS
     ==================================================*/
@@ -75,7 +80,7 @@ public class Player {
         this.eventManager = eventManager;
 
         // Starting equipment
-        equipment.setWeapon(WeaponLibrary.executionerSword);
+        equipment.setWeapon(WeaponLibrary.practiceSword);
         equipment.setArmour(ArmourLibrary.clothShirt);
     }
 
@@ -184,9 +189,9 @@ public class Player {
      */
     public void coinChange(int amount) {
         if (amount >= 0) {
-            sendMessage("You've gained " + amount + " coins!");
+            sendMessage(GREEN + "You've gained " + amount + " coins!" + RESET);
         } else {
-            sendMessage("You've lost " + Math.abs(amount) + " coins!");
+            sendMessage(RED +"You've lost " + Math.abs(amount) + " coins!" + RESET);
         }
         coins += amount;
 

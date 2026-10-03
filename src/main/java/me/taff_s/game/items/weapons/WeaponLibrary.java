@@ -4,12 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponClass;
 import me.taff_s.game.items.weapons.DamageType;
 
 public class WeaponLibrary {
-    private static final ThreadLocalRandom rand = ThreadLocalRandom.current();
+    //private static final ThreadLocalRandom rand = ThreadLocalRandom.current();
 
     //format: Name, Description, Price, Damage, Class, DamageType, Durability
     
@@ -108,14 +110,20 @@ public class WeaponLibrary {
         shortBow, bow, warBow
     );
 
+    //method to get a starter weapon for the player
+    public static Weapon starterWeapon() {
+         return practiceSword.copy(); 
+    }
+
+
     //Any random weapon
     public static Weapon getRandomWeapon() {
-        return weapons.get(rand.nextInt(weapons.size()));
+        return weapons.get(ThreadLocalRandom.current().nextInt(weapons.size())).copy();
     }
 
     //Any random shop weapons
     public static Weapon getRandomShopWeapon() {
-        return getRandomWeightedShopWeapon(shopWeapons, weights, rand);
+        return getRandomWeightedShopWeapon(shopWeapons, weights, ThreadLocalRandom.current()).copy();
     }
 
     public static Weapon getRandomWeightedShopWeapon(List<Weapon> weapons, List<Integer> weights, Random rand) {
@@ -145,8 +153,8 @@ public class WeaponLibrary {
         8, 5, 3         // shortBow, bow, warBow
     );
 
-    public static List<Weapon> getAllWeapons() {
-        return weapons;
+    public static List<Weapon> getAllWeapons() {   // copies, so callers can't mutate templates
+        return weapons.stream().map(Weapon::copy).collect(Collectors.toList());
     }
 
     private WeaponLibrary() {}

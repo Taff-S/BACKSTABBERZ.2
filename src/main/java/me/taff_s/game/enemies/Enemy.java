@@ -105,7 +105,8 @@ public abstract class Enemy{
             }
         }
         if (armourBroken) {
-            finalDmg = (int) Math.round(finalDmg * 1.25); // 25% more damage if armour is broken
+            // finalDmg = (int) Math.round(finalDmg * 1.25); // 25% more damage if armour is broken
+            finalDmg = (int) Math.round(finalDmg * (1.0 + (naturalDefence * 0.05))); // 5% more damage per point of natural defence
         }
         health = Math.max(0, health - finalDmg);
     }
