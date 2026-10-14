@@ -3,8 +3,10 @@ package me.taff_s.game.world;
 import java.util.ArrayList;
 import java.util.List;
 import me.taff_s.game.items.Item;
+import me.taff_s.game.items.armour.Armour;
 import me.taff_s.game.items.armour.ArmourLibrary;
 import me.taff_s.game.items.potions.PotionLibrary;
+import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponLibrary;
 import me.taff_s.game.player.Player;
 
@@ -12,7 +14,15 @@ public class Shop implements Encounter {
     private List<Item> stock = new ArrayList<>();
     
     public Shop(List<Item> startingStock) {
-        this.stock.addAll(startingStock);
+        for (Item item : startingStock) {
+            if (item instanceof Weapon) {
+                this.stock.add(((Weapon) item).copy());
+            } else if (item instanceof Armour) {
+                this.stock.add(((Armour) item).copy());
+            } else {
+                this.stock.add(item);
+            }
+        }
     }
 
     public static Shop createRandomShop() {

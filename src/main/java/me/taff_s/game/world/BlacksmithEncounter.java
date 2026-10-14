@@ -36,8 +36,18 @@ public class BlacksmithEncounter implements Encounter {
     public BlacksmithEncounter() {
         List<Item> pool = new ArrayList<>(HIGH_VALUE_POOL);
         java.util.Collections.shuffle(pool);
-        this.item1 = pool.get(0);
-        this.item2 = pool.get(1);
+        this.item1 = copyEquipmentItem(pool.get(0));
+        this.item2 = copyEquipmentItem(pool.get(1));
+    }
+
+    private static Item copyEquipmentItem(Item item) {
+        if (item instanceof Weapon) {
+            return ((Weapon) item).copy();
+        }
+        if (item instanceof Armour) {
+            return ((Armour) item).copy();
+        }
+        throw new IllegalArgumentException("Unsupported blacksmith stock item: " + item.getClass().getName());
     }
 
     private void displayIntro(Player player) {

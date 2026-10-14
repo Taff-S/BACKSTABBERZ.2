@@ -16,7 +16,7 @@ public class WeaponLibrary {
     //format: Name, Description, Price, Damage, Class, DamageType, Durability
     
     public static final Weapon rustyKnife = new Weapon("Rusty Knife", "Barely better than your fists", 3, 10, WeaponClass.SWORD, DamageType.SLASH, 7);
-    public static final Weapon butterKnife = new Weapon("Butter Knife", "A dull butterknife", 5, 10, WeaponClass.SWORD, DamageType.SLASH, 10);
+    public static final Weapon butterKnife = new Weapon("Butter Knife", "A dull butterknife", 5, 15, WeaponClass.SWORD, DamageType.SLASH, 10);
     public static final Weapon practiceSword = new Weapon("Practice Sword", "A wooden sword used for training", 8, 20, WeaponClass.SWORD, DamageType.SLASH, 12);
 
     public static final Weapon ironSword = new Weapon("Iron Sword", "A sturdy blade made of iron. Nothing too fancy", 25, 30, WeaponClass.SWORD, DamageType.SLASH, 15);
@@ -118,7 +118,7 @@ public class WeaponLibrary {
 
     //Any random weapon
     public static Weapon getRandomWeapon() {
-        return weapons.get(ThreadLocalRandom.current().nextInt(weapons.size())).copy();
+        return weapons.get(rand.nextInt(weapons.size())).copy();
     }
 
     //Any random shop weapons
@@ -136,11 +136,11 @@ public class WeaponLibrary {
         for (int i = 0; i < weights.size(); i++) {
             cumulative += weights.get(i);
             if (r < cumulative) {
-                return weapons.get(i);
+                return weapons.get(i).copy();
             }
         }
     
-        return weapons.get(0);
+        return weapons.get(0).copy();
     }
 
     //Weights for random shop items
@@ -153,8 +153,8 @@ public class WeaponLibrary {
         8, 5, 3         // shortBow, bow, warBow
     );
 
-    public static List<Weapon> getAllWeapons() {   // copies, so callers can't mutate templates
-        return weapons.stream().map(Weapon::copy).collect(Collectors.toList());
+    public static List<Weapon> getAllWeapons() {
+        return weapons.stream().map(Weapon::copy).toList();
     }
 
     private WeaponLibrary() {}

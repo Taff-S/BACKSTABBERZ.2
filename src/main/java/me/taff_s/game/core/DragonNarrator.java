@@ -2,16 +2,11 @@ package me.taff_s.game.core;
 
 import me.taff_s.game.player.Player;
 import me.taff_s.game.items.charms.CharmLibrary;
+import me.taff_s.game.style.Colours;
 
 public class DragonNarrator{
-    public static final String YELLOW = "\u001B[33m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String RED = "\u001B[31m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String RESET = "\u001B[0m";
-
     public static void startMonologue(Player player1, Player player2) {
-        String monologue = YELLOW + "You shuffle forth into the main chamber of the Golden Dragon's den. It's hard to move as every inch of the floor is covered in gold coins, jewellery and trinkets. Piles and piles, like desert sand dunes reach high up, nearly meeting the stalactites hanging from the ceiling. You watch your step — a slip in mud might dirty your clothes, but here? You'd be lucky to walk away with just a concussion. You and your partner walk up the steepest hill of riches and prepare to meet your boss.\r\n" + //
+        String monologue = Colours.YELLOW + "You shuffle forth into the main chamber of the Golden Dragon's den. It's hard to move as every inch of the floor is covered in gold coins, jewellery and trinkets. Piles and piles, like desert sand dunes reach high up, nearly meeting the stalactites hanging from the ceiling. You watch your step — a slip in mud might dirty your clothes, but here? You'd be lucky to walk away with just a concussion. You and your partner walk up the steepest hill of riches and prepare to meet your boss.\r\n" + //
         "\r\n" + //
         "\"Ah, Worm.\" The voice echoes within your head. Literally. The dragon uses magic to speak in your head, for a mere sigh or cough could leave both of you dead and charred. It's deep, brassy, and all too sonorous. \"And Worm Two. You know why I called you here.\"\r\n" + //
         "\r\n" + //
@@ -30,7 +25,7 @@ public class DragonNarrator{
         "\"Enough. I wish you both the best. GOLD. Bring me GOLD.\"\r\n" + //
         "\r\n" + //
         "You clutch your weapons, ready your armour and before you can blink, you appear at the beginning of the dungeon.\r\n" + //
-        "" + RESET;
+        "" + Colours.RESET;
         player1.sendMessage(monologue);
         player2.sendMessage(monologue);
     }
@@ -67,8 +62,8 @@ public class DragonNarrator{
         intro.append("\"Come, champions of greed and grit... ");
         intro.append("**Have at thee!**\"\n");
     
-        player1.sendMessage(YELLOW + intro.toString() + RESET);
-        player2.sendMessage(YELLOW + intro.toString() + RESET);
+        player1.sendMessage(Colours.YELLOW + intro.toString() + Colours.RESET);
+        player2.sendMessage(Colours.YELLOW + intro.toString() + Colours.RESET);
     }
 
 
@@ -94,8 +89,8 @@ public class DragonNarrator{
             intro1 = intro1 + "\"Gold.\" You shuffle forward offering up the agreed 75% of your horde.\n"
             + "You daren't even think of cheating him. He can see right through you.\n";
     
-        player1.sendMessage(YELLOW + intro1 + RESET);
-        player2.sendMessage(YELLOW + intro1 + RESET);
+        player1.sendMessage(Colours.YELLOW + intro1 + Colours.RESET);
+        player2.sendMessage(Colours.YELLOW + intro1 + Colours.RESET);
 
         if (!isFinalRun && !DragonGameManager.isRunBanked()) {
             DragonGameManager.bankCoins(player1, player2);
@@ -105,13 +100,13 @@ public class DragonNarrator{
         String highGoldMsg = "\"Now that's lovely.\"\n"
             + "You feel the dragon's satisfaction on an unconscious level, like he's scratching an itch in your brain you could never reach.\n"
             + "\"That's my darling servant. Keep up at this rate, and you'll end up my closest and only advisor...\"\n";
-        highGold.sendMessage(YELLOW + highGoldMsg + RESET);
+        highGold.sendMessage(Colours.YELLOW + highGoldMsg + Colours.RESET);
     
         // Lower gold response
         String lowGoldMsg = "\"Hmmm.\"\n"
             + "It's cold. Hair raisingly, teeth chattering-ly, heart stoppingly cold.\n"
             + "\"Adequate. But 'Adequate' doesn't become a servant. 'Adequate' more so fits my snacks.\"\n";
-        lowGold.sendMessage(YELLOW + lowGoldMsg + RESET);
+        lowGold.sendMessage(Colours.YELLOW + lowGoldMsg + Colours.RESET);
     
         // Mid-run boon
         if (!isFinalRun) {
@@ -126,8 +121,8 @@ public class DragonNarrator{
                 + "Compared to everything else, they seem rather inexpensive — just trinkets threaded with common string.\n"
                 + "But you feel that there's something magical about them. (EQUIP CHARMS IN YOUR INVENTORY)\n";
     
-            player1.sendMessage(YELLOW + boon + RESET);
-            player2.sendMessage(YELLOW + boon + RESET);
+            player1.sendMessage(Colours.YELLOW + boon + Colours.RESET);
+            player2.sendMessage(Colours.YELLOW + boon + Colours.RESET);
             player1.getInventory().addItem(CharmLibrary.getRandomCharm());
             player2.getInventory().addItem(CharmLibrary.getRandomCharm());
     
@@ -135,15 +130,15 @@ public class DragonNarrator{
         String ending = "\"Now,\" the dragon says, sitting back down without bothering to face you, "
             + "\"in my name, I allow you to continue your valiant crusade. I'll be waiting.\"\n";
     
-        player1.sendMessage(YELLOW + ending + RESET);
-        player2.sendMessage(YELLOW + ending + RESET);
+        player1.sendMessage(Colours.YELLOW + ending + Colours.RESET);
+        player2.sendMessage(Colours.YELLOW + ending + Colours.RESET);
     
         // Personalized threat
         String name = (lowGold == player1) ? "Worm One" : "Worm Two";
         String threat = "\"And " + name + "... Please don't disappoint me again... "
             + "And if you do, bring some salt back with you... I hear that worm goes down better seasoned...\"\n";
     
-        lowGold.sendMessage(YELLOW + threat + RESET);
+        lowGold.sendMessage(Colours.YELLOW + threat + Colours.RESET);
         }
     }
 
@@ -163,8 +158,8 @@ public class DragonNarrator{
     
         victory.append("\"Now... Coins. Rules are rules.\"\n");
     
-        player1.sendMessage(YELLOW + victory.toString() + RESET);
-        player2.sendMessage(YELLOW + victory.toString() + RESET);
+        player1.sendMessage(Colours.YELLOW + victory.toString() + Colours.RESET);
+        player2.sendMessage(Colours.YELLOW + victory.toString() + Colours.RESET);
     }
     
     public static void dragonDefeat(Player player1, Player player2) {
@@ -197,8 +192,8 @@ public class DragonNarrator{
     
         defeat.append("**YOU WIN.**\n");
     
-        player1.sendMessage(YELLOW + defeat.toString() + RESET);
-        player2.sendMessage(YELLOW + defeat.toString() + RESET);
+        player1.sendMessage(Colours.YELLOW + defeat.toString() + Colours.RESET);
+        player2.sendMessage(Colours.YELLOW + defeat.toString() + Colours.RESET);
     }
 
     public static void finalTally(Player winner, Player loser) {
@@ -237,10 +232,10 @@ public class DragonNarrator{
     
         finalDialogue.append("\"So, " + winner.getName() + "... Shall we begin your onboarding?\"\n\n");
     
-        winner.sendMessage(YELLOW + finalDialogue.toString() + RESET);
-        loser.sendMessage(YELLOW + finalDialogue.toString() + RESET);
-        winner.sendMessage(BLUE + "**YOU WIN**" + RESET);
-        loser.sendMessage(BLUE + "**YOU LOSE**" + RESET);
+        winner.sendMessage(Colours.YELLOW + finalDialogue.toString() + Colours.RESET);
+        loser.sendMessage(Colours.YELLOW + finalDialogue.toString() + Colours.RESET);
+        winner.sendMessage(Colours.BLUE + "**YOU WIN**" + Colours.RESET);
+        loser.sendMessage(Colours.BLUE + "**YOU LOSE**" + Colours.RESET);
     }
 
 }

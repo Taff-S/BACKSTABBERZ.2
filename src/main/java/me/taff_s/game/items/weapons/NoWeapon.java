@@ -16,5 +16,9 @@ public class NoWeapon extends Weapon{
     }
 
     @Override
-    public Weapon copy() { return this; }
+    public NoWeapon copy() {
+        return instance;
+    }
+
+    //public Weapon copy() { return this; }
 }

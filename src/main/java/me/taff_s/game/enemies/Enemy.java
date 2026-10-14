@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import me.taff_s.game.combat.CombatResult;
 import me.taff_s.game.player.Player;
 
 import me.taff_s.game.items.weapons.DamageType;
@@ -113,6 +114,19 @@ public abstract class Enemy{
     
     public int attack() {
         return minDamage + (int)(Math.random() * (maxDamage - minDamage + 1));
+    }
+
+    public void boostAttack(int amount) {
+        minDamage = Math.max(0, minDamage + amount);
+        maxDamage = Math.max(minDamage, maxDamage + amount);
+    }
+
+    public CombatResult trySpecial(Player target, List<Player> everyone) {
+        return null;
+    }
+
+    public boolean tryDeal(Player p1, Player p2) {
+        return false;
     }
 
     public void reduceAttack(int amount, int turns) {

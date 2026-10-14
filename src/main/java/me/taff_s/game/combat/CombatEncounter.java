@@ -14,6 +14,7 @@ import me.taff_s.game.player.PlayerHandler;
 import me.taff_s.game.enemies.Enemy;
 import me.taff_s.game.items.weapons.WeaponClass;
 import me.taff_s.game.enemies.types.Dragon;
+import me.taff_s.game.enemies.types.Dragonling;
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.charms.ShieldCharm;
 import me.taff_s.game.items.charms.Charm;
@@ -94,13 +95,32 @@ public class CombatEncounter {
             // Check if enemy is dead before enemy attacks
             if (!enemy.living()) break;
 
-            // Enemy attacks random player
-            Player target = Math.random() < 0.5 ? player1 : player2;
-            CombatResult enemyResult = CombatSystem.enemyAttack(enemy, target);
-            combatLog.add(enemyResult);
-            for (String event : enemyResult.getEvents()) {
-                ph1.getMessenger().send(event);
-                ph2.getMessenger().send(event);
+            if (enemy instanceof Dragonling) {
+                Dragonling dragonling = (Dragonling) enemy;
+                if (dragonling.tryDeal(player1, player2)) {
+                    CombatResult dealResult = new CombatResult();
+                    dealResult.addEvent(dragonling.getType() + " offers a deal.");
+                    combatLog.add(dealResult);
+                    for (String event : dealResult.getEvents()) {
+                        ph1.getMessenger().send(event);
+                        ph2.getMessenger().send(event);
+                    }
+                } else {
+                    CombatResult specialResult = dragonling.trySpecial(
+                            Math.random() < 0.5 ? player1 : player2,
+                            List.of(player1, player2));
+                    if (specialResult != null) {
+                        combatLog.add(specialResult);
+                        for (String event : specialResult.getEvents()) {
+                            ph1.getMessenger().send(event);
+                            ph2.getMessenger().send(event);
+                        }
+                    } else {
+                        performEnemyAttack(ph1, ph2, combatLog);
+                    }
+                }
+            } else {
+                performEnemyAttack(ph1, ph2, combatLog);
             }
         }
 
@@ -143,6 +163,16 @@ public class CombatEncounter {
                 CombatResult result = new CombatResult();
                 result.addEvent(actingPlayer.getName() + " panics and loses the turn!");
                 return result;
+        }
+    }
+
+    private void performEnemyAttack(PlayerHandler ph1, PlayerHandler ph2, List<CombatResult> combatLog) {
+        Player target = Math.random() < 0.5 ? player1 : player2;
+        CombatResult enemyResult = CombatSystem.enemyAttack(enemy, target);
+        combatLog.add(enemyResult);
+        for (String event : enemyResult.getEvents()) {
+            ph1.getMessenger().send(event);
+            ph2.getMessenger().send(event);
         }
     }
 }

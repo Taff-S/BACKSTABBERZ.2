@@ -14,7 +14,7 @@ You and a partner have been summoned by the Golden Dragon to prove your worth. Y
 ## How to Run
 
 ### Requirements
-- Java 11+
+- Java 25+
 - Maven (optional — the project includes a batch script for manual compilation)
 
 ### Quick Start (Windows)
