@@ -6,10 +6,15 @@ public class NoArmour extends Armour {
     private static final NoArmour instance = new NoArmour();
 
     private NoArmour(){
-        super("No armour", "You aren't wearing any armour",0, 0);
+        super("No armour", "You aren't wearing any armour", 0, 0, -1);
     }
 
     public static NoArmour getInstance() {
+        return instance;
+    }
+
+    @Override
+    public NoArmour copy() {
         return instance;
     }
 

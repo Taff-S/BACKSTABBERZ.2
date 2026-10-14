@@ -49,6 +49,14 @@ public class Weapon extends Item implements Equippable{
         return dType;
     }
 
+    public Weapon copy() {
+        Weapon copy = new Weapon(itemName, description, getPrice(), damage, wClass, dType, maxDurability);
+        if (isBreakable()) {
+            copy.reduceDurability(maxDurability - durability);
+        }
+        return copy;
+    }
+
     @Override
     public void equip(Player player) {
         if (isBroken()) {

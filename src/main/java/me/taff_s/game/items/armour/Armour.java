@@ -9,8 +9,13 @@ public class Armour extends Item implements Equippable{
     private int defence;
 
     public Armour(String itemName, String description, int price, int defence){
+        this(itemName, description, price, defence, 10);
+    }
+
+    public Armour(String itemName, String description, int price, int defence, int maxDurability){
         super(itemName, description, price);
         this.defence = defence;
+        setDurability(maxDurability);
     }
 
     public double getArmourVal() {
@@ -27,8 +32,20 @@ public class Armour extends Item implements Equippable{
         itemName = name;
     }
 
+    public Armour copy() {
+        Armour copy = new Armour(itemName, description, getPrice(), defence, maxDurability);
+        if (isBreakable()) {
+            copy.reduceDurability(maxDurability - durability);
+        }
+        return copy;
+    }
+
     @Override
     public void equip(Player player) {
+        if (isBroken()) {
+            player.sendMessage("You can't equip broken armour.");
+            return;
+        }
         player.getEquipment().setArmour(this);
         player.sendMessage("Equipped armour: " + getItemName());
     }

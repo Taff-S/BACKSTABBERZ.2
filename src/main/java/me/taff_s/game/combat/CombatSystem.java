@@ -5,6 +5,8 @@ import me.taff_s.game.enemies.Enemy;
 import me.taff_s.game.items.weapons.NoWeapon;
 import me.taff_s.game.items.weapons.Weapon;
 import me.taff_s.game.items.weapons.WeaponClass;
+import me.taff_s.game.items.armour.Armour;
+import me.taff_s.game.items.armour.NoArmour;
 import me.taff_s.game.items.charms.Charm;
 import me.taff_s.game.combat.CombatResult;
 import java.util.List;
@@ -41,12 +43,7 @@ public class CombatSystem {
             return result;
         }
 
-        int damage = weapon.getDamage();
-
-        // Fists special case: if equipped and base damage is 0, randomly do 0 or 10.
-        if (weapon instanceof NoWeapon && damage == 0) {
-            damage = Math.random() < 0.5 ? 0 : 10;
-        }
+        int damage = calculatePlayerDamage(attacker, weapon);
 
         enemy.isHit(damage, weapon.getDamageType());
         weapon.reduceDurability(1);
@@ -119,7 +116,16 @@ public class CombatSystem {
     public static CombatResult enemyAttack(Enemy enemy, Player target) {
         CombatResult result = new CombatResult();
         int dmg = enemy.attack();
-        target.takeDamage(dmg, target.getEquipment().getEquippedArmour(), target.getStance(), false);
+        Armour armour = target.getEquipment().getEquippedArmour();
+        target.takeDamage(dmg, armour, target.getStance(), false);
+        armour.reduceDurability(1);
+        if (armour.isBroken()) {
+            result.addEvent(target.getName() + "'s " + armour.getItemName() + " breaks!");
+            if (!target.getInventory().getItems().contains(armour)) {
+                target.getInventory().addItem(armour);
+            }
+            target.getEquipment().setArmour(NoArmour.getInstance());
+        }
         result.addEvent(enemy.getType() + " attacks " + target.getName() + " for " + dmg + " damage!");
         if (!target.living()) {
             result.setPlayerDefeated(true);
@@ -131,12 +137,7 @@ public class CombatSystem {
     public static CombatResult playerAttack(Player attacker, Player defender, Weapon weapon, boolean defenderDefending) {
         CombatResult result = new CombatResult();
         // Calculate damage, apply to defender, add events
-        int damage = weapon.getDamage();
-
-        // Fists special case: if equipped and base damage is 0, randomly do 0 or 10.
-        if (weapon instanceof NoWeapon && damage == 0) {
-            damage = Math.random() < 0.5 ? 0 : 10;
-        }
+        int damage = calculatePlayerDamage(attacker, weapon);
 
         if (defenderDefending) damage /= 2;
         defender.takeDamage(damage, defender.getEquipment().getEquippedArmour(), defenderDefending, false);
@@ -146,5 +147,15 @@ public class CombatSystem {
             result.addEvent(defender.getName() + " has died!");
         }
         return result;
+    }
+
+    private static int calculatePlayerDamage(Player attacker, Weapon weapon) {
+        int damage = weapon.getDamage();
+
+        if (weapon instanceof NoWeapon && damage == 0) {
+            damage = Math.random() < 0.5 ? 0 : 10;
+        }
+
+        return damage + attacker.getStrengthMod();
     }
 }

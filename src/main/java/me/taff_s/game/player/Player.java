@@ -75,8 +75,8 @@ public class Player {
         this.eventManager = eventManager;
 
         // Starting equipment
-        equipment.setWeapon(WeaponLibrary.executionerSword);
-        equipment.setArmour(ArmourLibrary.clothShirt);
+        equipment.setWeapon(WeaponLibrary.practiceSword.copy());
+        equipment.setArmour(ArmourLibrary.clothShirt.copy());
     }
 
 

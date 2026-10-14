@@ -28,6 +28,7 @@ import me.taff_s.game.world.TreasureEncounter;
 import me.taff_s.game.world.VShop;
 import me.taff_s.game.world.BlacksmithEncounter;
 import me.taff_s.game.world.BloodMachineEcounter;
+import me.taff_s.game.style.Colours;
 
 public class GameServer {
     private static final int PORT = 5000;
@@ -70,11 +71,11 @@ public class GameServer {
         return true;
     }
 
-    public static final String YELLOW = "\u001B[33m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String RED = "\u001B[31m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String RESET = "\u001B[0m";
+    public static final String YELLOW = Colours.YELLOW;
+    public static final String GREEN = Colours.GREEN;
+    public static final String RED = Colours.RED;
+    public static final String BLUE = Colours.BLUE;
+    public static final String RESET = Colours.RESET;
 
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException{     
         GameLogger logger = new GameLogger();
