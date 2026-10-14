@@ -7,7 +7,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import me.taff_s.game.items.armour.Armour;
 
 public class ArmourLibrary {
-    private static final ThreadLocalRandom rand = ThreadLocalRandom.current();
 
     //format: Name, Description, Price, Armour Value, Durability
     public static final Armour clothShirt = new Armour("Cloth Shirt", "Offers basically no protection", 5, 1, 10);

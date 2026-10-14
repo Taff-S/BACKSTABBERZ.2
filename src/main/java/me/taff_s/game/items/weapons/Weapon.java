@@ -21,6 +21,11 @@ public class Weapon extends Item implements Equippable{
         setDurability(max);
     }
 
+    public Weapon copy() {
+        // generates a new weapon from the weapon library templates with fresh durability, since the constructor calls setDurability(max)
+        return new Weapon(getItemName(), getDescription(), getPrice(), damage, wClass, dType, maxDurability);
+}
+
     public String getWeaponName() {
         return itemName;
     }

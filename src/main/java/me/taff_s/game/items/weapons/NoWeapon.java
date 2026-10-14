@@ -20,4 +20,5 @@ public class NoWeapon extends Weapon{
         return instance;
     }
 
+    //public Weapon copy() { return this; }
 }
