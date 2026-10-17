@@ -44,7 +44,7 @@ public class BlueDragonling extends Dragonling {
 
         addDeal(DealLibrary.potionTribute(
             "You carry so many potions. Surrender them to me, "
-                + "and I will send you directly to the Golden Dragon.",
+                + "and I will let you pass without a fight.",
             "Thank you. Go in peace.",
             5));
     }

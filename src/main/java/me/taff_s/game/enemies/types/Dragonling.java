@@ -36,6 +36,7 @@ public abstract class Dragonling extends Enemy {
     // Deals (only one is offered per battle)
     private final List<Deal> deals = new ArrayList<>();
     private boolean dealOffered = false;
+    private boolean conceded = false;
 
     protected Dragonling(int tier, String colour, String variant, String name,
                          int health, int lowDmg, int highDmg, int reward, int defence,
@@ -155,7 +156,12 @@ public abstract class Dragonling extends Enemy {
 
     /** Ends the fight without a kill (the combat loop stops once the enemy is no longer living). */
     public void concede() {
+        conceded = true;
         health = 0;
+    }
+
+    public boolean wasConceded() {
+        return conceded;
     }
 
     // ------------------------------------------------------------------ //

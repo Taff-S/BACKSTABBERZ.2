@@ -179,8 +179,8 @@ public class RestRoom {
         handler.getMessenger().sendMulti(
             "You both enter a quiet room. You can finally rest... or not.",
             player.getName() + ", choose your action:",
-            "[1] Rest peacefully (+7 HP)",
-            "[2] Rest warily (+3 HP, can defend)",
+            "[1] Rest peacefully (+70 HP)",
+            "[2] Rest warily (+30 HP, can defend)",
             "[3] Open inventory",
             "[4] Betray your partner"
         );

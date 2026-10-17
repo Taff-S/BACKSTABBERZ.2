@@ -80,7 +80,7 @@ public final class DealLibrary {
         };
     }
 
-    /** "Give me a cut of your coins and I'll send you straight to my father." Both must agree. */
+    /** "Give me a cut of your coins and I'll let you pass." Both must agree. */
     public static Deal coinTribute(String pitch, String acceptLine, double fraction) {
         return new Deal(DealTiming.MID, Deal.Audience.BOTH, true, pitch, acceptLine) {
             @Override
@@ -97,7 +97,7 @@ public final class DealLibrary {
         };
     }
 
-    /** "Hand over all your potions and I'll send you to the Golden Dragon." Both must agree. */
+    /** "Hand over all your potions and I'll let you pass." Both must agree. */
     public static Deal potionTribute(String pitch, String acceptLine, int minPotions) {
         return new Deal(DealTiming.MID, Deal.Audience.BOTH, true, pitch, acceptLine) {
             @Override

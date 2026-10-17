@@ -17,7 +17,10 @@ import me.taff_s.game.world.RoomManager;
 import me.taff_s.game.world.RoomType;
 import me.taff_s.game.enemies.EnemyFactory;
 import me.taff_s.game.enemies.Enemy;
+import me.taff_s.game.enemies.types.BlueDragonling;
 import me.taff_s.game.enemies.types.Dragon;
+import me.taff_s.game.enemies.types.Dragonling;
+import me.taff_s.game.enemies.types.RedDragonling;
 import me.taff_s.game.combat.CombatEncounter;
 import me.taff_s.game.combat.CombatResult;
 import me.taff_s.game.world.Shop;
@@ -130,6 +133,7 @@ public class GameServer {
             for (int run = 0; run < 3; run++) {
                 DragonGameManager.runCount = run;
                 RoomManager generator = new RoomManager();
+                boolean runEndedEarly = false;
 
                 while (generator.hasMoreRooms()) {
                     RoomType room = generator.getNextRoomType();
@@ -190,8 +194,7 @@ public class GameServer {
                                     new BloodMachineEcounter().interact(player1, player2);
                                     break;
                                 case TREASURE:
-                                    player1.sendMessage("You found a treasure room! (Not yet implemented.)");
-                                    player2.sendMessage("You found a treasure room! (Not yet implemented.)");
+                                    new TreasureEncounter().interact(player1, player2);
                                     break;
                                 case VSHOP:
                                     player1.sendMessage("You found a vampire shop! (Not yet implemented.)");
@@ -220,43 +223,67 @@ public class GameServer {
                         case BOSS: {
                             player1.sendMessage("---------------------------------------------------------");
                             player2.sendMessage("---------------------------------------------------------");
-                            DragonNarrator.finalFightIntro(player1, player2);
-                            Enemy dragon1 = new Dragon();
-                            CombatEncounter finalFight = new CombatEncounter(player1, player2, dragon1);
-                            //boolean playersWin = finalFight.start(playerHandlers.get(1), playerHandlers.get(2));
-                            List<CombatResult> finalFightResult = finalFight.start(playerHandlers.get(1), playerHandlers.get(2));
+                            if (run < 2) {
+                                Dragonling dragonling = run == 0
+                                        ? new RedDragonling()
+                                        : new BlueDragonling();
+                                dragonling.display(player1);
+                                dragonling.display(player2);
 
-                            // Send results of each action to both players
-                            for (CombatResult results : finalFightResult) {
-                                for (String event : results.getEvents()) {
-                                    playerHandlers.get(1).getMessenger().send(event);
-                                    playerHandlers.get(2).getMessenger().send(event);
+                                CombatEncounter minibossFight =
+                                        new CombatEncounter(player1, player2, dragonling);
+                                List<CombatResult> minibossResults = minibossFight.start(
+                                        playerHandlers.get(1), playerHandlers.get(2));
+
+                                for (CombatResult result : minibossResults) {
+                                    for (String event : result.getEvents()) {
+                                        playerHandlers.get(1).getMessenger().send(event);
+                                        playerHandlers.get(2).getMessenger().send(event);
+                                    }
+                                }
+
+                                if (!dragonling.living()) {
+                                    playerHandlers.get(1).getMessenger().send("Dragonling defeated!");
+                                    playerHandlers.get(2).getMessenger().send("Dragonling defeated!");
+                                    if (!dragonling.wasConceded()) {
+                                        player1.coinChange(dragonling.getCoinDrop());
+                                        player2.coinChange(dragonling.getCoinDrop());
+                                    }
+                                } else if (!player1.living() || !player2.living()) {
+                                    playerHandlers.get(1).getMessenger().send("A player has died. Combat ends.");
+                                    playerHandlers.get(2).getMessenger().send("A player has died. Combat ends.");
+                                }
+                            } else {
+                                DragonNarrator.finalFightIntro(player1, player2);
+                                Enemy dragon1 = new Dragon();
+                                CombatEncounter finalFight = new CombatEncounter(player1, player2, dragon1);
+                                List<CombatResult> finalFightResult =
+                                        finalFight.start(playerHandlers.get(1), playerHandlers.get(2));
+
+                                for (CombatResult result : finalFightResult) {
+                                    for (String event : result.getEvents()) {
+                                        playerHandlers.get(1).getMessenger().send(event);
+                                        playerHandlers.get(2).getMessenger().send(event);
+                                    }
+                                }
+
+                                if (!dragon1.living()) {
+                                    playerHandlers.get(1).getMessenger().send("Enemy defeated!");
+                                    playerHandlers.get(2).getMessenger().send("Enemy defeated!");
+                                    DragonNarrator.dragonDefeat(player1, player2);
+                                    System.exit(0);
+                                } else if (!player1.living() || !player2.living()) {
+                                    playerHandlers.get(1).getMessenger().send("A player has died. Combat ends.");
+                                    playerHandlers.get(2).getMessenger().send("A player has died. Combat ends.");
+                                    DragonNarrator.dragonVictory(player1, player2, true);
                                 }
                             }
-
-                            // Handle win/loss
-                            if (!dragon1.living()) {
-                                playerHandlers.get(1).getMessenger().send("Enemy defeated!");
-                                playerHandlers.get(2).getMessenger().send("Enemy defeated!");
-                                DragonNarrator.dragonDefeat(player1, player2);
-                                System.exit(0);
-                            } else if (!player1.living() || !player2.living()) {
-                                playerHandlers.get(1).getMessenger().send("A player has died. Combat ends.");
-                                playerHandlers.get(2).getMessenger().send("A player has died. Combat ends.");
-                                DragonNarrator.dragonVictory(player1, player2, run == 2);
-                            }
-
-                            // if (playersWin) {
-                            //     DragonNarrator.dragonDefeat(player1, player2);
-                            //     System.exit(0);
-                            // } else {
-                            //     DragonNarrator.dragonVictory(player1, player2, run == 2);
-                            // }
                             break;
                         }
                     }
 
                     if (handleDeathAndResetIfNeeded(player1, player2, run)) {
+                        runEndedEarly = true;
                         break;
                     }
                 }
@@ -265,7 +292,9 @@ public class GameServer {
                     continue;
                 }
 
-                DragonGameManager.handleRunCompletion(player1, player2); // Final run check
+                if (!runEndedEarly) {
+                    DragonGameManager.handleRunCompletion(player1, player2);
+                }
                 player1.setHealth(player1.getMaxHealth());
                 player2.setHealth(player2.getMaxHealth());
 

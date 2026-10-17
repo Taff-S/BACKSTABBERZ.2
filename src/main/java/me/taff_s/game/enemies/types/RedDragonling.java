@@ -39,20 +39,24 @@ public class RedDragonling extends Dragonling {
 
         addDeal(DealLibrary.coinTribute(
             "I find myself rather uncaring of this battle's outcome. Give me a mere quarter of your "
-                + "coins, and I'll send you to our father just like that.",
+                + "coins, and I'll let you pass just like that.",
             "Splendid. Do leave the coins on your way out.",
             0.25));
 
         addDeal(DealLibrary.jumpPartner(
-            "Psst. You. This fight bores me. Let's jump your friend and split their things. "
-                + "They won't see it coming.",
+            " \"Psst. You. This... This fight bores me.\" The dragonling whispers telepathically. Even in your mind, you can hear the weariness in its voice. It is weak, no matter how hard it tries to ignore it."
+            + "\"You seem like the leader to me. Let's jump your 'friend' and split their things between us.\" "
+            + "They won't see it coming.",
             "Delicious. Watch this."));
     }
 
     @Override
     protected String introLine() {
         return "You enter the next room. A crimson dragonling lounges on a heap of coins, "
-             + "admiring its reflection in a polished shield.";
+             + "admiring its reflection in a polished shield. As soon as it notices you, it flares its nostrils and smirks."
+             + " \"Well well well. Who dares enter the domain of the omnipotent Red Dragon?\" "
+             + " Overcoming your initial shock, you note that the scaled beast is much smaller than the Golden Dragon, and its voice certianly isn't as awe-inspiring."
+             + "More likely, it is a dragonling, a young wyrm yet to have obtain its true power and resultant hoarde. But it is no less dangerous than an adult dragon. You steel yourself for the fight ahead.";
     }
 
     @Override

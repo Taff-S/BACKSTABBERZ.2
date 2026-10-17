@@ -118,7 +118,7 @@ public class WeaponLibrary {
 
     //Any random weapon
     public static Weapon getRandomWeapon() {
-        return weapons.get(rand.nextInt(weapons.size())).copy();
+        return weapons.get(ThreadLocalRandom.current().nextInt(weapons.size())).copy();
     }
 
     //Any random shop weapons

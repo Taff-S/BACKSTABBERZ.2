@@ -38,11 +38,15 @@ public class Charm extends Item implements Equippable{
     public void unequip(Player player) {
         EquippedItems eq = player.getEquipment();
         if (eq.getCharm1() == this) {
-            player.getInventory().addItem(this);
+            if (!player.getInventory().getItems().contains(this)) {
+                player.getInventory().addItem(this);
+            }
             eq.setCharm1(NoCharm.getInstance());
             player.sendMessage("Unequipped charm from slot 1.");
         } else if (eq.getCharm2() == this) {
-            player.getInventory().addItem(this);
+            if (!player.getInventory().getItems().contains(this)) {
+                player.getInventory().addItem(this);
+            }
             eq.setCharm2(NoCharm.getInstance());
             player.sendMessage("Unequipped charm from slot 2.");
         } else {

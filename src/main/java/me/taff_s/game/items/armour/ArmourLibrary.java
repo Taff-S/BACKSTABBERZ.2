@@ -25,7 +25,7 @@ public class ArmourLibrary {
     );
 
     public static Armour getRandomArmour() {
-        return armours.get(rand.nextInt(armours.size())).copy();
+        return armours.get(ThreadLocalRandom.current().nextInt(armours.size())).copy();
     }
 
     public static List<Armour> getAllArmours() {
